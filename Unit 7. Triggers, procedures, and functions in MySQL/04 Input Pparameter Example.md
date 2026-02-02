@@ -65,3 +65,4 @@ drop table if exists libros;
 ```
 It generates an output similar to this:
 
+![procedure](./assets/procedure04.png)
