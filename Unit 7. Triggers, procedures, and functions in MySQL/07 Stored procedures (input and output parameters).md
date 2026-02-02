@@ -10,7 +10,7 @@ create procedure PROCEDURENAME (inout PARAMETERNAME DATATYPE)
 ```
 As an example, we will implement a stored procedure that receives an input/output parameter with an integer and returns it incremented by 1:
 
-´´´sql
+```sql
  drop procedure if exists pa_incrementar;
  
  delimiter //
