@@ -98,8 +98,44 @@ Note that the delimiter does not have to be $$; it could be any delimiter that w
 
 Once created, it will appear in the Stored Procedures section in MySQL Workbench.
 
-![procedures](./assets/procedure01.png)
+![procedures](./assets/procedures01.png)
 
- 
- call pa_libros_limite_stock();
- ```
+In MySQL Workbench we can also create it in the following way:
+          **Creating stored procedures in MySQL Workbench**
+
+![procedures](./assets/procedures02.png)        ![procedures](./assets/procedures03.png)     
+
+In this case, there's no need to specify a DELIMITER, as MySQL Workbench will handle that automatically.
+
+--- 
+
+## List procedures
+The SQL command that allows you to view information about stored procedures is: **SHOW PROCEDURE STATUS**.
+For example, to view information about the stored procedures in the `CIRCO` database:
+```sql
+SHOW  PROCEDURE  STATUS 
+WHERE  Db  =  'CIRCUS' ;
+```
+ ![procedures](./assets/procedures04.png)   
+
+ ## Call a procedure
+To call a stored procedure we must use the **SQL CALL** command .
+When you call a stored procedure, the commands inside it will be executed.
+For example:
+
+```sql
+CALL  CIRCUS.animals_getList ();
+```
+
+Note that the stored procedure name is preceded by the database name. This wouldn't be necessary if we were executing the procedure with the selected database or if we had the SQL command `USE db_name;` before the procedure call.
+
+ ![procedures](./assets/procedures05.png)   
+
+ ## Visualizar el código de un procedimiento
+Para ver el código de un procedimiento almacenado podemos hacer uso de la orden SQL **SHOW CREATE PROCEDURE nombre_proc**
+
+``sql
+SHOW CREATE PROCEDURE animales_getList;
+```
+
+ ![procedures](./assets/procedures06.png)   
