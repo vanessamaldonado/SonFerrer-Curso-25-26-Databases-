@@ -134,7 +134,7 @@ Note that the stored procedure name is preceded by the database name. This would
  ## Visualizar el código de un procedimiento
 Para ver el código de un procedimiento almacenado podemos hacer uso de la orden SQL **SHOW CREATE PROCEDURE nombre_proc**
 
-``sql
+```sql
 SHOW CREATE PROCEDURE animales_getList;
 ```
 
