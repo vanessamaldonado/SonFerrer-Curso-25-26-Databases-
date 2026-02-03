@@ -139,3 +139,41 @@ SHOW CREATE PROCEDURE animales_getList;
 ```
 
  ![procedures](./assets/procedures06.png)   
+
+--- 
+
+# Modify a procedure
+- In MySQL, it is not allowed to modify the parameters and body of a procedure.
+  To do this, we will have to delete it and recreate it.
+- What it does allow is the modification of certain characteristics of it.
+- The SQL command to modify these characteristics is **ALTER PROCEDURE** .
+- For example, we can modify the COMMNENT clause, which is used to provide a description of the procedure.
+  
+```sql
+ALTER  PROCEDURE  animales_getList 
+COMMENT  'Gets a list of all animals' ;
+
+SHOW  PROCEDURE  STATUS  
+WHERE  Db  =  'CIRCUS' ;
+```
+
+ ![procedures](./assets/procedures07.png)   
+
+From the MySQL Workbench we can 'modify' a procedure (it will actually delete it and recreate it) in the following way:
+
+ ![procedures](./assets/procedures08.png)   
+
+ ---
+
+ # Delete a procedure
+- The SQL command that allows you to delete a procedure is **DROP PROCEDURE** .
+- Note that we can include an 'IF EXISTS' clause to specify that the procedure should only be deleted if it exists. This is very useful when we have a block of statements, because without the IF clause, if the procedure doesn't exist, an error would occur and the statements would stop executing.
+
+```sql
+DROP  PROCEDURE  IF  EXISTS  proc_name ;
+```
+- Note that we can refer to the procedure by preceding its name with the name of the database where it is created, followed by a period: **DROP PROCEDURE IF EXISTS CIRCO .proc_name;**
+- Note: As in the previous operation, a procedure can be deleted graphically from the MysqlWorkBench (by right-clicking on it).
+
+
+
