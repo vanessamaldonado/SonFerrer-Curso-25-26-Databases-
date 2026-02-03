@@ -131,8 +131,8 @@ Note that the stored procedure name is preceded by the database name. This would
 
  ![procedures](./assets/procedures05.png)   
 
- ## Visualizar el código de un procedimiento
-Para ver el código de un procedimiento almacenado podemos hacer uso de la orden SQL **SHOW CREATE PROCEDURE nombre_proc**
+ ## Viewing the code of a procedure
+To view the code of a stored procedure we can use the SQL command **SHOW CREATE PROCEDURE procedure_name**
 
 ```sql
 SHOW CREATE PROCEDURE animales_getList;
