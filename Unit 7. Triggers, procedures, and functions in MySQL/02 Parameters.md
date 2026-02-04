@@ -76,3 +76,64 @@ DELIMITER ;
 
 CALL nombre_proc_varios_param(dato1,datos2,...);
 ```
+
+## Output
+
+In this type of parameter, when the stored procedure modifies its value, this is reflected in the code from where the call was made.
+
+In the parameter definition we must add the word `OUT`.
+
+For example:
+
+```sql
+DELIMITER \\
+CREATE PROCEDURE nombre_proc (OUT nombre_parametro1 tipo_dato)
+BEGIN
+     .......
+     SET nombre_parametro1 = 1;  // Cualquier instrucción que modifique el valor, como SELECT INTO, SET,....
+END//
+DELIMITER ;
+```
+
+Upon exiting the procedure, the parameter value will be 1.
+Who calls him:
+
+```sql
+CALL nombre_proc(@dato);
+
+SELECT @dato;    // El valor de la variable @dato es uno, ya que fue modificado por el procedimiento y es de salida.  
+```
+
+We can use any combination of output and input parameters in the same procedure.
+
+## IN/OUT
+
+Input/Output parameters are the result of applying the concepts learned for input and output parameters.
+
+These are parameters to which we will be able to give an initial value, call the procedure and it will be able to use the value sent and within the procedure it will be able to change its value and this will be reflected from where it was called.
+
+For example:
+
+```sql
+DELIMITER \\
+CREATE PROCEDURE nombre_proc (INOUT nombre_parametro1 tipo_dato)
+BEGIN
+     SELECT 
+     FROM TABLA
+     WHERE columna = nombre_parametro1;
+     .......
+     SET nombre_parametro1 = 1;  // Cualquier instrucción que modifique el valor, como SELECT INTO, SET,....
+END//
+DELIMITER ;
+```
+
+Upon exiting the procedure, the parameter value will be 1.
+
+Who calls him:
+
+```sql
+SET @dato = 100;  // El procedimiento podrá hacer uso del valor enviado en la variable @dato
+CALL nombre_proc(@dato); 
+
+SELECT @dato;    // El valor de la variable @dato es uno, ya que fue modificado por el procedimiento y es de salida.
+```
