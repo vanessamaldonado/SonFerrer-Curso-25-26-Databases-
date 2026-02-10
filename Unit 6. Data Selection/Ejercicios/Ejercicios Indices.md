@@ -32,7 +32,7 @@ Una clínica registra las consultas de los pacientes en una tabla llamada **cons
   numero int unsigned,
   documento char(8) not null,
   obrasocial varchar(30),
-  medico varchar(30),
+  medico varchar(30)
  );
  ```
 3- Agregue un índice único multicampo (fecha,documento,medico):
@@ -143,6 +143,7 @@ create table consultas(
 6- Vea los índices.
 
 --- 
+
 
 
 
