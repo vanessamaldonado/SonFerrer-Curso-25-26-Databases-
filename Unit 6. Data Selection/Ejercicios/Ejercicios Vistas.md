@@ -118,5 +118,7 @@ llamada **alumnos**.
 5-Crear una vista que retorne el nombre y la nota de todos los alumnos aprobados (notas mayores
 iguales a 7) a partir de la vista anterior.
 6-Muestre la información que genera la vista.
+
 --- 
+
 
