@@ -31,57 +31,7 @@ SELECT * FROM world.countrylanguage.
 
 --- 
 
-<details><summary>Mostrar Solución Enunciado </summary>
 
-```sql
-DROP USER IF EXISTS 'paco'@'localhost';
-CREATE USER 'paco'@'localhost' IDENTIFIED BY '';
-GRANT USAGE ON *.* TO 'paco'@'localhost';
-
--- Verificación (como root):
-SHOW GRANTS FOR 'paco'@'localhost'
-
-DROP USER IF EXISTS 'joan'@'localhost';
-CREATE USER 'joan'@'localhost' IDENTIFIED BY 'joan';
-GRANT USAGE ON *.* TO 'joan'@'localhost';
-
--- Verificación (como root):
-SHOW GRANTS FOR 'joan'@'localhost';
-
-GRANT SELECT ON world.city TO 'paco'@'localhost';
-SHOW GRANTS FOR 'paco'@'localhost';
-
-GRANT SELECT, INSERT, UPDATE ON world.* TO 'joan'@'localhost' WITH GRANT OPTION;
-SHOW GRANTS FOR 'joan'@'localhost';
-
-GRANT SELECT ON world.country TO 'paco'@'localhost';
-SHOW GRANTS FOR 'paco'@'localhost';
-
-REVOKE SELECT ON world.city FROM 'paco'@'localhost';
-SHOW GRANTS FOR 'paco'@'localhost';
-
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'paco'@'localhost';
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'joan'@'localhost';
-
-GRANT SELECT (CountryCode, Language)
-ON world.countrylanguage
-TO 'joan'@'localhost';
-
-SHOW GRANTS FOR 'joan'@'localhost';
-
--- Si lo ejecutas como joan:
--- SELECT * FROM world.countrylanguage;
--- -> Fallará por permisos, porque joan NO tiene SELECT sobre IsOfficial y Percentage.
---
--- Esto SÍ debería funcionar como joan:
--- SELECT CountryCode, Language FROM world.countrylanguage LIMIT 10;
-
-DROP USER IF EXISTS 'paco'@'localhost';
-
--- Verificación final
-SELECT user, host FROM mysql.user WHERE user IN ('paco','joan');
- ```
-</details>
 
 
 
