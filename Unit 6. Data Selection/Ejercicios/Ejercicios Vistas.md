@@ -76,16 +76,21 @@ algunos datos de los profesores y socios, por ello se crean vistas a las cuales 
 ```
 
 3- Elimine la vista "vista_club" si existe.
-4 - Cree una vista en la que aparezca el nombre y documento del socio, el deporte, el día y el nombre 
-del profesor (no mostrar datos de los socios que no están inscriptos en deportes)
+
+4 - Cree una vista en la que aparezca el nombre y documento del socio, el deporte, el día y el nombre del profesor (no mostrar datos de los socios que no están inscriptos en deportes)
+
 5- Muestre la información contenida en la vista.
-6- Realice una consulta a la vista donde muestre la cantidad de socios inscriptos en cada deporte 
-ordenados por cantidad.
+
+6- Realice una consulta a la vista donde muestre la cantidad de socios inscriptos en cada deporte ordenados por cantidad.
+
 7- Muestre (consultando la vista) el nombre y documento de los socios que deben matrículas.
-8- Consulte la vista y muestre los nombres de los profesores y los días en que asisten al club para 
-dictar sus clases.
+
+8- Consulte la vista y muestre los nombres de los profesores y los días en que asisten al club para dictar sus clases.
+
 9- Muestre todos los socios que son compañeros en tenis los lunes.
+
 10 - Cree una nueva vista llamada `vista_inscriptos` que muestre la cantidad de inscriptos por curso, incluyendo el nombre del deporte y el día. Elimine la vista previamente si ya existe.
+
 11- Consulte la vista 'vista_inscriptos':
 
 
@@ -113,12 +118,16 @@ llamada **alumnos**.
  insert into alumnos values('30555555','Fabian Fuentes',8.5);
  insert into alumnos values('30666666','Gaston Gonzalez',9.70);
 ```
+
 3-Cree una vista que recupere el nombre y la nota de todos los alumnos (borrar la vista si ya existe)
+
 4-Mostrar el resultado de llamar la vista en un comando SQL 'select'.
-5-Crear una vista que retorne el nombre y la nota de todos los alumnos aprobados (notas mayores
-iguales a 7) a partir de la vista anterior.
+
+5-Crear una vista que retorne el nombre y la nota de todos los alumnos aprobados (notas mayores iguales a 7) a partir de la vista anterior.
+
 6-Muestre la información que genera la vista.
 
 --- 
+
 
 
