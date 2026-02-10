@@ -30,7 +30,7 @@ algunos datos de los profesores y socios, por ello se crean vistas a las cuales 
   primary key (numero)
  );
 
- create table inscriptos(
+ create table inscritos(
   documentosocio char(8) not null,
   numero integer not null,
   matricula char(1),
@@ -67,31 +67,26 @@ algunos datos de los profesores y socios, por ello se crean vistas a las cuales 
  insert into cursos(deporte,dia,documentoprofesor) 
   values('basquet','martes','24444444');
 
- insert into inscriptos values('30000000',1,'s');
- insert into inscriptos values('30000000',3,'n');
- insert into inscriptos values('30000000',6,null);
- insert into inscriptos values('31111111',1,'s');
- insert into inscriptos values('31111111',4,'s');
- insert into inscriptos values('32222222',8,'s');
+ insert into inscritos values('30000000',1,'s');
+ insert into inscritos values('30000000',3,'n');
+ insert into inscritos values('30000000',6,null);
+ insert into inscritos values('31111111',1,'s');
+ insert into inscritos values('31111111',4,'s');
+ insert into inscritos values('32222222',8,'s');
 ```
 
 3- Elimine la vista "vista_club" si existe.
-
-4 - Cree una vista en la que aparezca el nombre y documento del socio, el deporte, el día y el nombre del profesor (no mostrar datos de los socios que no están inscriptos en deportes)
-
+4 - Cree una vista en la que aparezca el nombre y documento del socio, el deporte, el día y el nombre 
+del profesor (no mostrar datos de los socios que no están inscritos en deportes)
 5- Muestre la información contenida en la vista.
-
-6- Realice una consulta a la vista donde muestre la cantidad de socios inscriptos en cada deporte ordenados por cantidad.
-
+6- Realice una consulta a la vista donde muestre la cantidad de socios inscritos en cada deporte 
+ordenados por cantidad.
 7- Muestre (consultando la vista) el nombre y documento de los socios que deben matrículas.
-
-8- Consulte la vista y muestre los nombres de los profesores y los días en que asisten al club para dictar sus clases.
-
+8- Consulte la vista y muestre los nombres de los profesores y los días en que asisten al club para 
+dictar sus clases.
 9- Muestre todos los socios que son compañeros en tenis los lunes.
-
-10 - Cree una nueva vista llamada `vista_inscriptos` que muestre la cantidad de inscriptos por curso, incluyendo el nombre del deporte y el día. Elimine la vista previamente si ya existe.
-
-11- Consulte la vista 'vista_inscriptos':
+10 - Cree una nueva vista llamada `vista_inscritos` que muestre la cantidad de inscritos por curso, incluyendo el nombre del deporte y el día. Elimine la vista previamente si ya existe.
+11- Consulte la vista 'vista_inscritos':
 
 
 ## Enunciado 2:
@@ -118,16 +113,84 @@ llamada **alumnos**.
  insert into alumnos values('30555555','Fabian Fuentes',8.5);
  insert into alumnos values('30666666','Gaston Gonzalez',9.70);
 ```
-
 3-Cree una vista que recupere el nombre y la nota de todos los alumnos (borrar la vista si ya existe)
-
 4-Mostrar el resultado de llamar la vista en un comando SQL 'select'.
-
-5-Crear una vista que retorne el nombre y la nota de todos los alumnos aprobados (notas mayores iguales a 7) a partir de la vista anterior.
-
+5-Crear una vista que retorne el nombre y la nota de todos los alumnos aprobados (notas mayores
+iguales a 7) a partir de la vista anterior.
 6-Muestre la información que genera la vista.
-
 --- 
 
 
+<details><summary>Mostrar Solución Enunciado 1 </summary>
 
+```sql
+ drop table if exists inscritos;
+ drop table if exists socios;
+ drop table if exists profesores; 
+ drop table if exists cursos;
+
+-- creamos las tablas
+
+ drop view if exists vista_club; 
+
+ create view vista_club as
+  select s.nombre as socio,
+         s.documento as docsocio,
+         s.domicilio as domsocio,
+         c.deporte as deporte,
+         dia,
+         p.nombre as profesor, 
+         matricula
+   from socios as s
+   join inscritos as i on s.documento=i.documentosocio
+   join cursos as c on i.numero=c.numero
+   join profesores as p on c.documentoprofesor=p.documento;
+
+ select * from vista_club;
+
+ select deporte,dia,count(socio) as cantidad
+   from vista_club
+   group by deporte,dia
+   order by cantidad; 
+
+ select socio, 
+        docsocio 
+   from vista_club 
+   where matricula <> 's';   
+
+ select distinct profesor,dia
+   from vista_club;
+
+ select socio from vista_club
+  where deporte='tenis' and dia='lunes';
+
+
+ drop view if exists vista_incritos; 
+  
+ create view vista_inscritos as
+  select deporte,dia,
+   (select count(*)
+    from inscriptos as i
+    where i.numero=c.numero) as cantidad
+  from cursos as c;
+
+ select * from vista_inscritos;  
+ ```
+</details>
+
+
+<details><summary>Mostrar Solución Enunciado 2 </summary>
+
+```sql
+ drop view if exists vista_nota_alumnos;
+ create view vista_nota_alumnos as
+   select nombre, nota
+     from alumnos;
+ select * from vista_nota_alumnos;     
+ create view vista_nota_alumnos_aprobados as
+   select nombre, nota 
+     from vista_nota_alumnos
+     where nota>=7;
+ select * from vista_nota_alumnos_aprobados;
+ ```
+</details>
