@@ -16,7 +16,9 @@ Tenemos la siguiente tabla **clientes** que almacena información sobre los clie
  );
  ```
 3- Agregue un índice común por ciudad y provincia.
+
 4- Vea la información de los índices.
+
 5- Agregue un índice único por el campo "documento".
 
 ## Enunciado 2:
@@ -34,8 +36,11 @@ Una clínica registra las consultas de los pacientes en una tabla llamada **cons
  );
  ```
 3- Agregue un índice único multicampo (fecha,documento,medico):
-4- Agregue un índice común por el campo "medico":
-5- Agregue un índice común por el campo "obrasocial":
+
+4- Agregue un índice común por el campo "medico".
+
+5- Agregue un índice común por el campo "obrasocial".
+
 6- Vea los índices.
 
 ## Enunciado 3:
@@ -55,8 +60,11 @@ Trabajaremos con la tabla **alumnos** en el cual un instituto de enseñanza guar
  );
  ```
 3- Vea los índices de la tabla.
+
 4- Agregue un índice común por los campos "ciudad" y "provincia" (que pueden repetirse).
+
 5- Agregue un índice único (no pueden repetirse los valores) por el campo "documento".
+
 6- Visualice los índices.
 
 ## Enunciado 4: 
@@ -75,7 +83,9 @@ Una clínica registra las consultas de los pacientes en una tabla llamada **cons
  );
  ```
 3- Agregue un índice único llamado "i_consulta" compuesto por los campos "documento", "fecha" y "medico".
+
 4- Hay 2 campos por los cuales podemos realizar consultas frecuentemente: "medico" y "obrasocial", cree índices comunes para esos campos.
+
 5- Vea los índices.
 
 ## Enunciado 5:
@@ -99,8 +109,11 @@ alumnos.
  );
 ```
 3- Vea los índices de la tabla.
+
 4- Elimine el índice único.
+
 5- Elimine el índice común.
+
 6- Vea los índices.
 
 ## Enunciado 6:
@@ -122,11 +135,15 @@ create table consultas(
  );
 ```
 3- Vea los índices de la tabla.
+
 4- Elimine el índice único:
-5- Elimine los índices comumes:
-6- Vea los índices:
+
+5- Elimine los índices comumes.
+
+6- Vea los índices.
 
 --- 
+
 
 
 
