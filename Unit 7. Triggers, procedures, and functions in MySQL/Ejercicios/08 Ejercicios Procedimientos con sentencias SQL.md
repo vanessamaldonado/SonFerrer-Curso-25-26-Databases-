@@ -1,4 +1,4 @@
-# 07 Ejercicios: Procedimientos con sentencias SQL
+# 08 Ejercicios: Procedimientos con sentencias SQL
 
 ## Ejercicio 1
 Escribe un procedimiento que reciba el nombre de un país como parámetro de entrada y realice una consulta sobre la tabla cliente para obtener todos los clientes que existen en la tabla de ese país.
@@ -65,4 +65,5 @@ Utilice un bucle REPEAT para resolver el procedimiento del ejercicio anterior.
 
 ## Ejercicio 12
 Utilice un bucle LOOP para resolver el procedimiento del ejercicio anterior.
+
 
