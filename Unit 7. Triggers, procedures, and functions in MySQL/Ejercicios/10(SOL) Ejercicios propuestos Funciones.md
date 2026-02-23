@@ -68,13 +68,16 @@ ORDER BY nombre_atraccion, fecha;
 Crea una función de nombre `animales_getEstadoPorAnhos` que devuelva la cadena:
 
 Si tipo = León
+
     - anhos < 2: 'JOVEN'
-    - anhos >=2 y <=5: 'MADURO'
-    - anhos > 5: 'VIEJO'
+	- anhos >=2 y <=5: 'MADURO'
+	- anhos > 5: 'VIEJO'
+
 Cualquier otro tipo:
+
     - anhos < 1: 'JOVEN'
-    - anhos >=1 y <=3: 'MADURO'
-    - anhos > 3: 'VIEJO'
+	- anhos >=1 y <=3: 'MADURO'
+	- anhos > 3: 'VIEJO'
 
 Llama a la función para mostrar el estado por años de cada uno de los animales del CIRCO.
 
@@ -404,4 +407,5 @@ GROUP BY estacion
 ORDER BY FIELD(estacion,'INVIERNO','PRIMAVERA','VERANO','OTOÑO');
 
 ```
+
 </details>
