@@ -1,6 +1,6 @@
 # **Ejercicios - Handler en MySQL**
 
-### ** Ejercicio 1: **
+### **Ejercicio 1:**
 Crea una tabla llamada `users` con las siguientes especificaciones: 
 
 ```sql
@@ -49,7 +49,7 @@ Crea un procedimiento almacenado que actualiza el salario de un empleado especif
 
 ---
 
-### **Ejercicio 3: **
+### **Ejercicio 3:**
 
 Cree la base de datos `testdb` si aún no existe y cambie a ella. Luego, cree una tabla `products`, con las siguientes especificaciones:
 
@@ -70,4 +70,5 @@ Cree un procedimiento almacenado para insertar un nuevo producto. Incluye un DEC
 ### **Ejercicio 4:** 
 
 Cree un procedimiento almacenado para actualizar la cantidad de un producto. El procedimiento verificará si la nueva cantidad es negativa. Si lo es, generará (SIGNAL) un error personalizado.
+
 
