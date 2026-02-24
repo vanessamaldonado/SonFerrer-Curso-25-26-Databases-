@@ -14,10 +14,12 @@ Nota: Indicar que Mysql ya dispone de dicha función, a la que se le pasa una fe
 Crea una función de nombre `animales_getEstadoPorAnhos` que devuelva la cadena:
 
 Si tipo = León
+
     - anhos < 2: 'JOVEN'
     - anhos >=2 y <=5: 'MADURO'
     - anhos > 5: 'VIEJO'
 Cualquier otro tipo:
+
     - anhos < 1: 'JOVEN'
     - anhos >=1 y <=3: 'MADURO'
     - anhos > 3: 'VIEJO'
@@ -62,3 +64,4 @@ Crea una función de nombre `utilidades_getEstacionPorMes` que en función del m
 Llama a dicha función con el valor 7 y guarda el resultado en una variable de sesión. Muestra su valor.
 Muestra las atracciones que empezaran en PRIMAVERA (tabla ATRACCIONES).
 Muestra las ganancias por estación.
+
