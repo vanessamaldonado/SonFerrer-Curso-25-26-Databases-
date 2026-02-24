@@ -1,4 +1,4 @@
-# 10 Funciones sin sentencias SQL
+# 11 Funciones sin sentencias SQL
 
 ## Ejercicio 1:
 Escribe una función que reciba un número entero de entrada y devuelva TRUE si el número es par o FALSE en caso contrario.
@@ -24,4 +24,5 @@ Para realizar esta función puede hacer uso de las siguientes funciones que nos 
 - TRUNCATE
 
 ## Ejercicio 7:
+
 Escribe una función que reciba una cadena de entrada y devuelva la misma cadena pero sin acentos. La función tendrá que reemplazar todas las vocales que tengan acento por la misma vocal pero sin acento. Por ejemplo, si la función recibe como parámetro de entrada la cadena María la función debe devolver la cadena Maria.
