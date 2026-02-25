@@ -71,4 +71,25 @@ Cree un procedimiento almacenado para insertar un nuevo producto. Incluye un DEC
 
 Cree un procedimiento almacenado para actualizar la cantidad de un producto. El procedimiento verificará si la nueva cantidad es negativa. Si lo es, generará (SIGNAL) un error personalizado.
 
+Cree un procedimiento almacenado para actualizar la cantidad de un producto. El procedimiento verificará si la nueva cantidad es negativa. Si lo es, generará (SIGNAL) un error personalizado.
+
+Haz uso del siguiente script para crear la tabla producto.
+
+```sql
+CREATE DATABASE IF NOT EXISTS test;
+USE test;
+
+CREATE TABLE IF NOT EXISTS products (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0
+);
+
+INSERT INTO products (id, name, quantity)
+VALUES
+    (1, 'Laptop', 10),
+    (2, 'Mouse', 25);
+    
+```
+
 
