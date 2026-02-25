@@ -203,3 +203,81 @@ SELECT @err AS error_segunda_insercion;  -- debería ser 1 (id repetido)
 SELECT * FROM alumno;
 ```
 </details>
+
+--- 
+
+## Declaring exceptions. DECLARE CONDITION
+In MySQL, DECLARE CONDITION it is used with in stored procedures to define a custom condition that can then be handled DECLARE ... HANDLER with.
+
+```sql
+DECLARE nombre_condicion CONDITION FOR valor_condicion;
+```
+
+- nombre_condicion→ Name you assign to the condition.
+- valor_condicion→ Can be:
+    - A SQLSTATE (e.g. '23000')
+    - A MySQL error code (e.g. 1062)
+
+> Can only be used within a BEGIN ... END procedure, function, or trigger.
+
+**Example with exception handling** 
+Suppose we want to capture the duplicate key error (error 1062).
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE insertar_usuario(
+    IN p_id INT,
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    -- Declarar condición
+    DECLARE duplicado CONDITION FOR 1062;
+
+    -- Declarar handler para esa condición
+    DECLARE CONTINUE HANDLER FOR duplicado
+        SELECT 'Error: ID duplicado' AS mensaje;
+
+    -- Intentar inserción
+    INSERT INTO usuarios(id, nombre)
+    VALUES(p_id, p_nombre);
+
+END //
+
+DELIMITER ;
+```
+**What's happening here?**
+
+DECLARE duplicado CONDITION FOR 1062;
+→ Associate the name duplicadowith error 1062 (Duplicate entry) .
+
+DECLARE CONTINUE HANDLER FOR duplicado
+→ If that error occurs, execute the SELECTand the procedure continues.
+---
+
+## SIGNAL ruling
+
+The SIGNAL statement is used to transmit an error or warning condition. It results in an error or warning being returned by specifying the SQLSTATE, along with the optional message text.
+
+**Syntax**
+
+```sql
+SIGNAL SQLSTATE 'valor_sqlstate'
+    SET condition_information_item = value,
+        condition_information_item = value, ...;
+```
+
+- SQLSTATE 'valor'→ Error code (5-character string).
+- SET→ Allows you to define error details such as:
+  - MESSAGE_TEXT→ Personalized message.
+  - MYSQL_ERRNO→ Numerical error code.
+  - CONSTRAINT_NAME, TABLE_NAME, etc.
+
+## Basic Example:
+
+```sql
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Error personalizado';
+```
+
+> `45000`is a generic code for user-defined errors.
