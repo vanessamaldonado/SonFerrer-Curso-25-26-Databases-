@@ -236,7 +236,7 @@ BEGIN
 
     -- Declarar handler para esa condición
     DECLARE CONTINUE HANDLER FOR duplicado
-        SELECT 'Error: ID duplicado' AS mensaje;
+      SELECT 'Error: ID duplicado' AS mensaje;
 
     -- Intentar inserción
     INSERT INTO usuarios(id, nombre)
@@ -249,10 +249,12 @@ DELIMITER ;
 **What's happening here?**
 
 DECLARE duplicado CONDITION FOR 1062;
-→ Associate the name duplicadowith error 1062 (Duplicate entry) .
+
+	→ Associate the name duplicadowith error 1062 (Duplicate entry) .
 
 DECLARE CONTINUE HANDLER FOR duplicado
-→ If that error occurs, execute the SELECTand the procedure continues.
+
+	→ If that error occurs, execute the SELECTand the procedure continues.
 ---
 
 ## SIGNAL ruling
@@ -279,5 +281,4 @@ SIGNAL SQLSTATE 'valor_sqlstate'
 SIGNAL SQLSTATE '45000'
 SET MESSAGE_TEXT = 'Error personalizado';
 ```
-
 > `45000`is a generic code for user-defined errors.
