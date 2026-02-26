@@ -107,33 +107,44 @@ Once the table is created, write two triggers with the following characteristics
 <details><summary>Click me to see the solution</summary>
 
 ```sql
-DELIMITER $$
-DROP TRIGGER IF EXISTS trigger_check_nota_before_insert$$
-CREATE TRIGGER trigger_check_nota_before_insert
-BEFORE INSERT
-ON alumnos FOR EACH ROW
-BEGIN
-  IF NEW.nota < 0 THEN
-    set NEW.nota = 0;
-  ELSEIF NEW.nota > 10 THEN
-    set NEW.nota = 10;
-  END IF;
-END
+USE test;
+
+
+DROP TRIGGER IF EXISTS trigger_check_nota_before_insert;
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS trigger_check_nota_before_update$$
-CREATE TRIGGER trigger_check_nota_before_update
-BEFORE UPDATE
-ON alumnos FOR EACH ROW
+CREATE TRIGGER trigger_check_nota_before_insert
+BEFORE INSERT ON alumnos
+FOR EACH ROW
 BEGIN
   IF NEW.nota < 0 THEN
-    set NEW.nota = 0;
+    SET NEW.nota = 0;
   ELSEIF NEW.nota > 10 THEN
-    set NEW.nota = 10;
+    SET NEW.nota = 10;
   END IF;
-END
+END$$
+
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS trigger_check_nota_before_update;
+
+DELIMITER $$
+CREATE TRIGGER trigger_check_nota_before_update
+BEFORE UPDATE ON alumnos
+FOR EACH ROW
+BEGIN
+  IF NEW.nota < 0 THEN
+    SET NEW.nota = 0;
+  ELSEIF NEW.nota > 10 THEN
+    SET NEW.nota = 10;
+  END IF;
+END$$
+
+DELIMITER ;
 ```
 </details>
+
+> Within a trigger BEFORE INSERT,BEFORE UPDATE it `NEW` is an alias that represents the row to be inserted or updated.
 
 Once the triggers are created, write several insert and update statements on the table alumnos and verify that the triggers are executing correctly.
 
@@ -153,4 +164,5 @@ UPDATE alumnos SET nota = 9.5 WHERE id = 3;
 
 SELECT * FROM alumnos;
 ```
+
 </details>
