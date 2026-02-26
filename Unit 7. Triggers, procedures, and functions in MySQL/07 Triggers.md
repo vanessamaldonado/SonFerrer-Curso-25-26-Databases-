@@ -151,7 +151,6 @@ Once the triggers are created, write several insert and update statements on the
 <details><summary>Click me to see the solution</summary>
 
 ```sql
-DELIMITER ;
 INSERT INTO alumnos VALUES (1, 'Pepe', 'López', 'López', -1);
 INSERT INTO alumnos VALUES (2, 'María', 'Sánchez', 'Sánchez', 11);
 INSERT INTO alumnos VALUES (3, 'Juan', 'Pérez', 'Pérez', 8.5);
@@ -166,3 +165,4 @@ SELECT * FROM alumnos;
 ```
 
 </details>
+
