@@ -97,7 +97,7 @@ END$$
 DELIMITER ;
 ```
 
-> NEW y OLD (lo que más confunde)
+> NEW y OLD 
 >
 >    - En INSERT: existe NEW.campo
 >    - En UPDATE: existen OLD.campo y NEW.campo
@@ -199,5 +199,6 @@ SELECT @err;
 CALL insertar_alumno(1,'Ana',@err); -- repetido
 SELECT @err;
 ```
+
 
 > HANDLER se usa sobre todo en procedures, para controlar errores “esperables”.
