@@ -4,7 +4,7 @@
 Crea la bbd: Empresa y añede las siguientes tablas:
 
 - Trabajador (id PK, nombre, apellidos, oficio, fecha_alta, salario, comision, id_departamento FK)
-- Departamentos (id PK, nombre, ubicacion).
+- Departamentos (id_departamento PK, nombre, ubicacion).
 
 Añade los departamentos:
   - Nombre: Administración, Ubicación: Madrid
