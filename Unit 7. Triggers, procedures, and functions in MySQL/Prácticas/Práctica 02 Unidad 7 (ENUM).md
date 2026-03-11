@@ -24,7 +24,7 @@ CREATE TABLE result (
     position INT,
     final_time TIME,
     FOREIGN KEY (player_id) REFERENCES player(player_id) ON DELETE CASCADE,
-    FOREIGN KEY (race_id) REFERENCES race(race_id)
+    FOREIGN KEY (race_id) REFERENCES race(race_id) ON DELETE CASCADE
 );
 -- insertamos datos
 INSERT INTO player (name) VALUES
@@ -65,5 +65,6 @@ CREATE TABLE player_history (
 ```
 
 ---
+
 
 d) Crea un disparador BEFORE DELETE en race que impida eliminar una carrera si hay registros en `result`.
