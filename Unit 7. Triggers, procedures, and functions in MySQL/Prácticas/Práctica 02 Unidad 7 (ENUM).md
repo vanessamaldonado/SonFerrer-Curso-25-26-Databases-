@@ -23,10 +23,9 @@ CREATE TABLE result (
     race_id INT,
     position INT,
     final_time TIME,
-    FOREIGN KEY (player_id) REFERENCES player(player_id),
+    FOREIGN KEY (player_id) REFERENCES player(player_id) ON DELETE CASCADE,
     FOREIGN KEY (race_id) REFERENCES race(race_id)
 );
-
 -- insertamos datos
 INSERT INTO player (name) VALUES
 ('Ana'),
@@ -57,7 +56,14 @@ b) Crea un disparador BEFORE INSERT que compruebe que no haya dos jugadores con 
 
 c) Crea un disparador que, al eliminar un jugador de la tabla `player`, guarde su nombre y sus puntos en una tabla `player_history`.
 
----
+```sql
+CREATE TABLE player_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    points INT
+);
+```
 
+---
 
 d) Crea un disparador BEFORE DELETE en race que impida eliminar una carrera si hay registros en `result`.
