@@ -2,7 +2,7 @@
 
 Upon completion of this unit, the student will be able to:
 
-# 1. Manage information stored in non-relational databases, evaluating and utilizing the capabilities provided by the database management system.
+### 1. Manage information stored in non-relational databases, evaluating and utilizing the capabilities provided by the database management system.
 
     - Describe the characteristics of non-relational databases.
     - Evaluate the main types of non-relational databases.
