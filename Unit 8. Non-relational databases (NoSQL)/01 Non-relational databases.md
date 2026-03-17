@@ -8,9 +8,11 @@ While relational databases excel in consistency and the elimination of data redu
 
 This section will explore non-relational databases and database management systems (DBMS), analyzing their main data models, fundamental characteristics, advantages over the relational model, and their most common use cases. Once contextualized, we will focus on **MongoDB**, the most popular non-relational DBMS today.
 
+
 > NoSQL
 >
 >The term NoSQL does not refer to a single data model, but rather encompasses a broad category of models and their respective database management systems (DBMS) that move away from the traditional relational model to offer alternatives.
+
 
 ## **1.1 Non-relational databases**
 
