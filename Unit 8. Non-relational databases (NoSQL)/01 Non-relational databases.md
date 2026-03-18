@@ -6,9 +6,6 @@ It is in this context that **NoSQL databases** (an acronym for Not only SQL) eme
 
 While relational databases excel in consistency and the elimination of data redundancy, NoSQL databases focus on **availability**, **horizontal scalability**, and **schema flexibility**.
 
-This section will explore non-relational databases and database management systems (DBMS), analyzing their main data models, fundamental characteristics, advantages over the relational model, and their most common use cases. Once contextualized, we will focus on **MongoDB**, the most popular non-relational DBMS today.
-
-
 > NoSQL
 >
 >The term NoSQL does not refer to a single data model, but rather encompasses a broad category of models and their respective database management systems (DBMS) that move away from the traditional relational model to offer alternatives.
@@ -26,35 +23,9 @@ Non-relational databases are distinguished by the following characteristics:
 
 - **Horizontal scalability**: These databases are designed to grow by adding more low-cost servers (horizontal scalability) instead of upgrading a single powerful server (vertical scalability). This capability makes them ideal for applications with large volumes of data and high traffic.
 
-- **Distributed design**: Many NoSQL databases are distributed by default, eliminating a single point of failure and increasing system availability.
+- **Distributed design**: Many NoSQL databases are designed to operate on multiple servers at the same time. This ensures that if one server fails, the system remains operational, preventing a total outage and ensuring that users can always access the data.
 
 - **Non-compliance with ACID**: While relational databases follow ACID properties (Atomicity, Consistency, Isolation, and Durability) to ensure transaction integrity, many NoSQL databases prioritize availability and partition tolerance over immediate consistency, following the BASE principle (Basically Available).
-
-### Types of non-relational databases
-
-There are several types of NoSQL databases, each optimized for a specific data model and use case. The most relevant are:
-
-- **Key-value**: Data is stored as a collection of key-value pairs. They are very simple and fast, ideal for caching systems or shopping lists.
-
-- **Document-oriented**: They store data in flexible documents (for example, in JSON or XML format). They are useful for content management or user profiles, as they allow related data to be stored in a single document.
-
-- **Wide-column**: They organize data in columns instead of rows. This model is efficient for analytical queries on large volumes of data, such as in Big Data.
-
-- **Graph**: They are designed to store entities (nodes) and their relationships (edges). They are perfect for social network applications, recommendation systems, or fraud detection.
-
-### Advantages and disadvantages
-
-Their advantages are as follows:
-
-  - **Performance**: They are very fast for specific operations, as they are optimized for particular data models.
-  - **Flexibility**: Their dynamic schema allows faster and more flexible development.  
-  - **Scalability**: Scaling horizontally is easier and more cost-effective.
-
-Their disadvantages are as follows:
-
-- **No standard exists**: Each NoSQL database has its own query language and API, making migration between systems difficult.
-- **Lower consistency**: Prioritizing availability may result in eventual consistency instead of immediate consistency.
-- **Lack of standardized support**: Many NoSQL databases are open source and do not always have the same level of support as commercial relational databases.
 
 ## **1.2 Non-relational DBMS**
 
@@ -62,7 +33,7 @@ Their disadvantages are as follows:
 
 > The term NoSQL encompasses a wide range of these systems, each with a different data model, adapted to the needs of modern applications.
 
-**MongoDB** is a very popular non-relational DBMS; in fact, it is one of the most widely used today. Throughout this topic, we will explore the main alternatives among **NoSQL** systems in general and, finally, focus on **MongoDB**.
+**MongoDB** is a very popular non-relational DBMS; in fact, it is one of the most widely used today. 
 
 ### Main types of non-relational databases
 
