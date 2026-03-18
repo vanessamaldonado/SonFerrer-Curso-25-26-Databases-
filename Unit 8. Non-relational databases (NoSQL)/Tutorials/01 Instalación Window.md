@@ -19,19 +19,19 @@ Haciendo doble clic en el instalador descargado se inicia el asistente de config
 
 En primer término le aparecerá el cuadro de diálogo que puede ver en la figura anterior, en el que se le indica que ésta comenzará si hace clic en 'next'.
 
-![mongo](./assets/mongo02.png)
+![mongo](../assets/mongo02.png)
 
 Si hace clic en el botón 'Completa', se instalarán todas las funciones del programa. Si desea seleccionar qué funciones desea instalar y dónde se instalarán, seleccione el botón Personalizada. Sin embargo, esta opción sólo se recomienda para usuarios avanzados, y le recomendamos por tanto que elija la completa.
 
-![mongo](./assets/mongo03.png)
+![mongo](../assets/mongo03.png)
 
 Instalará MongoDB como servicio de red. La diferencia con instalarlo como usuario local o de dominio es que no requerirá que especifique un nombre de cuenta y una contraseña, ya que utilizará una cuenta de servicio integrada de Windows.
 
-![mongo](./assets/mongo04.png)
+![mongo](../assets/mongo04.png)
 
 Vigile, tal y como se muestra en la figura anterior, que esté marcada la casilla de selección “Instala MongoDB Compass”, y haga clic en el botón 'Siguiente'. Si así lo hace, el asistente de configuración también instalará MongoDB Compass con la versión Community.
 
-![mongo](./assets/mongo05.png)
+![mongo](../assets/mongo05.png)
 
 Haga clic en el botón Instalar ( Install ) para iniciar la instalación.
 
