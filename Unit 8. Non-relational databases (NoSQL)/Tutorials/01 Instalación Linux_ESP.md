@@ -61,3 +61,9 @@ Descarga la versión estable más reciente (ej. v44.x) para Linux desde https://
 wget https://downloads.mongodb.com/compass/mongodb-compass_1.49.4_amd64.deb
 sudo apt install ./mongodb-compass_1.49.4_amd64.deb
 ```
+
+**Paso 2: La instalación de Compass ya se completó (lo puedes verificar ejecutando):**
+
+```bash
+mongodb-compass
+```
