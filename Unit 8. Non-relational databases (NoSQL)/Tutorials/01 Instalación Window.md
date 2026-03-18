@@ -8,7 +8,7 @@ Para instalar MongoDB, descargue el ejecutable de la última versión desde la p
 
 Descargue la versión MongoDB Community Edition, cuyo instalador ya incluye, tal y como hemos comentado, MongoDB Compass.
 
-![mongo](./assets/mongo01.png)
+![mongo](../assets/mongo01.png)
 
 Tal y como muestra la figura anterior, se ha escogido para descargar la versión más reciente de MongoDB Community Server para Windows x64 ( 64 bits). Concretamente, el paquete de instalación es de tipo MSI .
 
