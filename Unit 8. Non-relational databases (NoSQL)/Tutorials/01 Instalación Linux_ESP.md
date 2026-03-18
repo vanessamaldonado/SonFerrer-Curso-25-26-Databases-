@@ -2,6 +2,12 @@
 
 Esta guía detalla la instalación de MongoDB Community Edition (versión 8.0/8.2 funcional en repositorios actuales) y MongoDB Compass (versión gratuita) en Ubuntu.
 
+## Instala las herramientas necesarias:
+```bash
+sudo apt update
+sudo apt install -y gnupg curl
+```
+
 ## 1. Instalación de MongoDB Server (8.x) en Ubuntu
 
 > MongoDB utiliza apt para la gestión de paquetes.
@@ -25,8 +31,8 @@ echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gp
 Actualiza el índice de paquetes e instala los binarios de MongoDB:
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y mongodb-org
+sudo apt update
+sudo apt install -y mongodb-org
 ```
 
 **Paso 4: Iniciar MongoDB**
@@ -51,24 +57,7 @@ MongoDB Compass es la GUI oficial gratuita.
 **Paso 1: Descargar el paquete .deb**
 Descarga la versión estable más reciente (ej. v44.x) para Linux desde https://www.mongodb.com/try/download/compass 
 
-También puedes usar wget (verifica el enlace más reciente): 
-
 ```bash
-wget https://downloads.mongodb.com
-```
-
-**Paso 2: Instalar Compass**
-Instala el paquete descargado usando `dpkg`
-
-```bash
-sudo dpkg -i mongodb-compass_*.deb
-# Si hay errores de dependencias, ejecuta:
-sudo apt-get install -f
-```
-
-**Paso 3: Abrir Compass**
-Puedes abrirlo desde el menú de aplicaciones o la terminal:
-
-```bash
-mongodb-compass
+wget https://downloads.mongodb.com/compass/mongodb-compass_1.49.4_amd64.deb
+sudo apt install ./mongodb-compass_1.49.4_amd64.deb
 ```
