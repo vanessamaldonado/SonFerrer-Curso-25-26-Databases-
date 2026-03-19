@@ -15,7 +15,7 @@ sudo rm -f /etc/apt/sources.list.d/mongo-org-*.list
 **Paso 1: Importar la clave pública GPG**
 
 ```bash
-curl -fsSL https://gpg.mongodb.com/server-8.0.asc | sudo gpg --dearmos -o /usr/share/keyrings/mongodb-server-8.0.gpg
+curl -fsSL https://gpg.mongodb.com/server-8.0.asc | sudo gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
 ```
 
 **Paso 2: Crear la lista de repositorios**
