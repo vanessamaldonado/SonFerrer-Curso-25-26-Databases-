@@ -6,39 +6,33 @@ The data will be stored in plain text files containing a set of JSON documents, 
 
 A JSON document is a data structure that uses key-value pairs and can include nested objects and arrays. It is the main format used by document-oriented databases such as MongoDB. MongoDB stores them internally in a binary format, and once imported, they are called BSON documents (Binary JSON).
 
-            ---
 
-            **JSON vs BSON**
+> **JSON vs BSON**
+>
+> JSON is the communication format we use when interacting with the database  
+> (for example, when running queries in MongoDB Compass). BSON, on the other hand,  
+> is the internal format that MongoDB uses to store and manage data efficiently.  
+> The MongoDB software handles the translation between JSON and BSON transparently  
+> for the user.
 
-            JSON is the communication format we use when interacting with the database (for example, when running queries in MongoDB Compass). BSON, on the other hand, is the internal format that MongoDB uses to store and manage data efficiently. The MongoDB software handles the translation between JSON and BSON transparently for the user.
-
-            ---
 
 ![mongo](./assets/mongo09.png)
 
 The JSON document shown in the previous figure describes a book. It has a hierarchical structure based on key-value pairs.
 
 
-            ---
-            **Description of the parts of the JSON document**
+> **Description of the parts of the JSON document**
+>
+> The description of the parts of the JSON document shown in Figure 15 is as follows:
+>
+> - {…}: These braces indicate the beginning and end of a JSON object. It is the main data unit.
+> - *title, author, ISBN, publicationYear*: These are keys of the object. Each one identifies a specific value. Their corresponding values are “The Da Vinci Code”, “Dan Brown”, “978-0307474278”, and 2003.
+> - *availableLanguages*: This key has an array value, indicated by square brackets […]. An array is an ordered list of values. In this case, the list contains three strings: "Catalan", "Spanish", and "English".
+> - *forSale*: This key has a boolean value, which can be true or false.
+> - *technicalDetails*: This key has a value that is another JSON object, with its own keys and values:
+>   - *numPages*: A key with a numeric value (689).
+>   - *hardcover*: A key with a boolean value (false).
 
-            The description of the parts of the JSON document shown in Figure 15 is as follows:
-
-            {…}: These braces indicate the beginning and end of a JSON object. It is the main data unit.
-
-            *título, autor, ISBN, añoPublicación*: These are keys of the object. Each one identifies a specific value. Their corresponding values are “The Da Vinci Code”, “Dan Brown”, “978-0307474278”, and 2003.
-
-            *idiomasDisponibles*: This key has an array value, indicated by square brackets […]. An array is an ordered list of values. In this case, the list contains three strings: "Catalan", "Spanish", and "English".
-
-            *enVenta*: This key has a boolean value, which can be true or false.
-            
-            **detallesTécnicos**: This key has a value that is another JSON object, with its own keys and values:
-
-                *numPagines*: A key with a numeric value (689).
-
-                *tapaDura*: A key with a boolean value (false).
-
-            ---
 
 ## 1.1 Database Creation
 To create a database, the first step is to open MongoDB Compass and connect to the local instance.
@@ -59,8 +53,7 @@ As you can see in the image, the restaurants database has already been created, 
 
 To import data into a collection in a database, we will download the `restaurants.json` file and copy it to a location that is easily accessible.
 
-![bbdd](./BBDD/restaurant.json)
-
+[Download restaurants.json](./BBDD/restaurants.json)
 
 Click on the `establishments` collection, and once you do, you will see the Import Data button appear. Click on this button to perform the import.
 
