@@ -70,7 +70,7 @@ You can verify that everything is working correctly by typing the following comm
 ```shell
 use restaurants
 
-db.establiments.countDocuments();
+db.establishments.countDocuments();
 ```
 
 With the first instruction, `use restaurants`, we have switched to the restaurants database.
