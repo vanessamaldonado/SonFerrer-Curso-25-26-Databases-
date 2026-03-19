@@ -39,5 +39,5 @@ Their purpose is as follows:
 
 - **local**. The local database is used to store replication data and is not replicated. It contains information about the state of the replica set, such as the oplog (a record of all data modification operations), which allows synchronization between members of the set. Since it is not replicated, it is ideal for data that is only relevant to the local instance.
 
-[!Important] 
-In summary, it is important to remember that these three databases are essential components of the MongoDB system and are fundamental for security (admin), scalability (config), and replication (local). It is crucial not to modify or delete them, as this could compromise the server’s operation.
+>[!Important] 
+>In summary, it is important to remember that these three databases are essential components of the MongoDB system and are fundamental for security (admin), scalability (config), and replication (local). It is crucial not to modify or delete them, as this could compromise the server’s operation.
