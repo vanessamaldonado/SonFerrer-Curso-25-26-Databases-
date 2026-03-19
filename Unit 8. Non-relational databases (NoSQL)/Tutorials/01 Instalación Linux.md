@@ -2,10 +2,10 @@
 
 Esta guía detalla la instalación de MongoDB Community Edition (versión 8.0/8.2 funcional en repositorios actuales) y MongoDB Compass (versión gratuita) en Ubuntu.
 
-## Instala las herramientas necesarias:
+## Borrar configuraciones anteriores:
 ```bash
-sudo apt update
-sudo apt install -y gnupg curl
+sudo rm -f /usr/share/keyrings/mongodb-*.gpg
+sudo rm -f /etc/apt/sources.list.d/mongo-org-*.list
 ```
 
 ## 1. Instalación de MongoDB Server (8.x) en Ubuntu
@@ -15,17 +15,15 @@ sudo apt install -y gnupg curl
 **Paso 1: Importar la clave pública GPG**
 
 ```bash
-curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+curl -fsSL https://gpg.mongodb.com/server-8.0.asc | sudo gpg --dearmos -o /usr/share/keyrings/mongodb-server-8.0.gpg
 ```
 
 **Paso 2: Crear la lista de repositorios**
-Dependiendo de tu versión de Ubuntu (ej. 24.04 'noble' o 22.04 'jammy'), crea el archivo de lista:
+Dependiendo de tu versión de Ubuntu, crea el archivo de lista:
 
 ```bash
-echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+echo "deb [ arch=amd64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 ```
-
-> (Nota: Si usas Ubuntu 22.04, cambia noble por jammy).
 
 **Paso 3: Actualizar e instalar**
 Actualiza el índice de paquetes e instala los binarios de MongoDB:
