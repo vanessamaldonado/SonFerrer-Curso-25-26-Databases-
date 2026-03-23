@@ -1,0 +1,143 @@
+[
+  {
+    "_id": "CL1",
+    "nombre": "William Suh",
+    "email": "william.suh@example.com",
+    "estatus": "activo",
+    "puntos_fidelidad": 500,
+    "preferencias": {
+      "notificaciones": false,
+      "categorias_favoritas": ["tecnologia"]
+    },
+    "telefono": "123456789",
+    "ciudad": "Guadalajara"
+  },
+  {
+    "_id": "CL2",
+    "nombre": "Ana López",
+    "email": "ana.lopez@hotmail.com",
+    "estatus": "activo",
+    "puntos_fidelidad": 200,
+    "preferencias": {
+      "notificaciones": true,
+      "categorias_favoritas": ["hogar"]
+    },
+    "telefono": null,
+    "ciudad": "Puebla"
+  },
+  {
+    "_id": "CL3",
+    "nombre": "Luis Pérez",
+    "email": "luis@example.com",
+    "estatus": "inactivo",
+    "puntos_fidelidad": 30,
+    "preferencias": {
+      "notificaciones": false,
+      "categorias_favoritas": []
+    },
+    "ciudad": "Madrid"
+  },
+  {
+    "_id": "CL4",
+    "nombre": "Carlos Ruiz",
+    "email": "carlos@example.com",
+    "estatus": "activo",
+    "puntos_fidelidad": 900,
+    "telefono": "999999999",
+    "ciudad": "Guadalajara"
+  },
+  {
+    "_id": "CL5",
+    "nombre": "Lucía Gómez",
+    "email": "lucia@example.com",
+    "estatus": "activo",
+    "puntos_fidelidad": 1000,
+    "ciudad": "Querétaro"
+  },
+  {
+    "_id": "CL6",
+    "nombre": "Pedro Sánchez",
+    "email": "pedro@example.com",
+    "historial_acceso": [
+      { "fecha": "2024-01-01", "dispositivo": "iPhone" }
+    ]
+  },
+  {
+    "_id": "CL7",
+    "nombre": "Marta Díaz",
+    "email": "marta@example.com",
+    "historial_acceso": [
+      { "fecha": "2024-01-02", "dispositivo": "iPad" }
+    ]
+  },
+  {
+    "_id": "CL8",
+    "nombre": "Jorge Torres",
+    "email": "jorge@example.com",
+    "preferencias": {
+      "categorias_favoritas": ["libros"]
+    }
+  },
+  {
+    "_id": "CL9",
+    "nombre": "Elena Navarro",
+    "email": "elena@example.com",
+    "metodos_pago": [
+      { "tipo": "tarjeta_credito", "numero": "1234-5678-9012-3456" },
+      { "tipo": "PayPal", "cuenta": "elena@paypal.com" }
+    ]
+  },
+  {
+    "_id": "CL10",
+    "nombre": "Raúl Castro",
+    "email": "raul@example.com"
+  },
+  {
+    "_id": "CL11",
+    "nombre": "Sara Jiménez",
+    "email": "sara@example.com",
+    "puntos_fidelidad": 150
+  },
+  {
+    "_id": "CL12",
+    "nombre": "David Moreno",
+    "email": "david@example.com",
+    "puntos_fidelidad": 800
+  },
+  {
+    "_id": "CL13",
+    "nombre": "Laura Ortega",
+    "email": "laura@example.com"
+  },
+  {
+    "_id": "CL14",
+    "nombre": "Pablo Vega",
+    "email": "pablo@example.com",
+    "puntos_fidelidad": 100,
+    "preferencias": {
+      "categorias_favoritas": []
+    }
+  },
+  {
+    "_id": "CL15",
+    "nombre": "Cliente Antiguo",
+    "email": "old@example.com",
+    "telefono": "111111111"
+  },
+  {
+    "_id": "CL16",
+    "nombre": "Andrea Gil",
+    "email": "andrea@example.com",
+    "direccion": {
+      "ciudad": "Barcelona"
+    }
+  },
+  {
+    "_id": "CL17",
+    "nombre": "John Booth",
+    "email": "john.booth@example.com",
+    "preferencias": {
+      "notificaciones": false
+    }
+  }
+]
