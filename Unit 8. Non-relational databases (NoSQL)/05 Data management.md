@@ -192,8 +192,6 @@ In essence, the `$set` operator ensures that a field will have the specified val
 
 It is important to note that `$push` only works with fields of type array and is the standard way to add elements to a list within a MongoDB document.
 
-It is important to note that `$push` only works with fields of type array and is the standard way to add elements to a list within a MongoDB document.
-
 **Practical example of using the $push operator (I):**
 
 If we continue working with the `restaurants` database created earlier, we can see that the documents in the `establishments` collection have an address field. The address field is an object containing several fields, including the coord field, which is an array that stores the restaurant’s latitude and longitude coordinates.
@@ -203,6 +201,8 @@ Suppose we want to update the following document: `restaurant_id: 50018997`.
 For now, what we will do is make the address field appear. To do this, we will use the `updateOne()` method as follows:
 
 ```javascript
+db.establishments.find({ name: 'Rucabruna' }) 
+
 db.establishments.updateOne(
     { name: 'Rucabruna' },
     { $set: { address: { coord: [] } } }
@@ -222,6 +222,8 @@ db.establishments.find({ name: 'Rucabruna' })
 We now want to add the building, street, and zipcode fields to the same document under the address field. We will run the `updateOne()` method again in a similar way to the previous example:
 
 ```javascript
+db.establishments.find({ name: 'Rucabruna' }) 
+
 db.establishments.updateOne(
     { 
       name: 'Rucabruna' 
@@ -252,3 +254,209 @@ db.establishments.updateOne(
       } 
     })
 ```
+
+**Use of the $push operator:**
+
+The `$push` operator, as we have explained, is used to add a new element to a field of type array. In a previous example, we inserted an establishment named `Rocabruna`, with an `address.coord` field of type array without any values. In the following example, we will see how to assign values to it.
+
+We are going to insert values into an array-type field, doing so one by one:
+
+```javascript
+db.establishments.find({ name: 'Rucabruna' }) 
+
+db.establishments.updateOne(
+    { 
+      name: 'Rucabruna' 
+    },
+    { 
+      $push: { 
+        "address.coord": -73.98967650000002
+      } 
+    })
+
+db.establishments.find({ name: 'Rucabruna' }) 
+
+db.establishments.updateOne(
+    { 
+      name: 'Rucabruna' 
+    },
+    { 
+      $push: { 
+        "address.coord": 40.6690748
+      } 
+    })
+```
+
+**Updating more than one value in an array-type field:**
+
+If we want to update more than one value in an array-type field, the syntax would be as follows:
+
+```javascript
+db.establishments.find({ name: 'Rucabruna 2' }) 
+
+db.establishments.updateOne(
+    { 
+      name: 'Rucabruna 2' 
+    },
+    { 
+      $push: { 
+        "address.coord": {
+          $each: [
+          -73.98967650000002, 
+          40.6690748
+          ]
+        }  
+      } 
+    })
+
+db.establishments.find({ name: 'Rucabruna 2' }) 
+```
+
+**Upsert option.**
+If the filter in the `updateOne()` method does not match any document, we may want the document to be created. This is where the upsert option comes into play. The upsert option inserts a document with the provided information if no document exists that matches the criteria specified in the filter argument.
+
+Let’s see it with an example: if we execute the following code for an establishment with the key name and value `Rocabruna 4`, which we know does not exist:
+
+```javascript
+db.establishments.updateOne(
+    { 
+      name: 'Rucabruna 4' 
+    },
+    { 
+      $set: { 
+        "address.coord": [ -73.98967650000002, 
+          40.6690748
+          ],
+         "address.street" : "4 Avenue" ,
+         "address.zipcode" : "11215"
+        }  
+      })
+
+db.establishments.find({ name: 'Rucabruna 4' }) 
+```
+
+Since no document matches the filter, no document can be updated. However, if we use the `upsert` option:
+
+```javascript
+db.establishments.updateOne(
+    { 
+      name: 'Rucabruna 4' 
+    },
+    { 
+      $set: { 
+        "address.coord": [ -73.98967650000002, 
+          40.6690748
+          ],
+         "address.street" : "4 Avenue" ,
+         "address.zipcode" : "11215"
+        }  
+      }, {
+        upsert: true
+      })
+
+db.establishments.find({ name: 'Rucabruna 4' }) 
+```
+
+### The updateMany() method
+
+The `updateMany()` method is used to update multiple documents in a collection. It accepts a filter document, an update document, and an options object as parameters. This last argument is optional.
+
+Its syntax is as follows:
+
+```javascript
+db.<collection>.updateMany(
+  <filtre>
+  <actualizacion>,
+  { <opciones>}
+)
+```
+
+Next, we detail its arguments:
+
+<filter>: This argument is a query document that defines the criteria for selecting the documents to be updated. If omitted (by passing an empty document {}), all documents in the collection will be updated. For example, { "estado": "pendiente" } would update only the documents where the estado field has the value "pendiente".
+
+<update>: This document specifies the changes to be applied to the selected documents. Update operators such as $set, $inc, $unset, etc., are generally used to modify existing fields, add new ones, or remove them. It is crucial to use these operators to avoid replacing the entire document, because without them, updateMany() would simply overwrite the existing document with the update document.
+
+<options>: This optional argument is a document containing additional options for the operation, such as upsert: true, which creates a new document if none match the filter.
+
+**Practical example of using the updateMany() method:**
+
+Imagine we need to change the neighborhood for all establishments with a specific zipcode. The query could be as follows:
+
+```javascript
+db.establishments.updateMany(
+    { 
+      "address.zipcode" : "11215"
+    },
+    { 
+      $set: { 
+        "borough":  "Brooklyn"
+        }  
+      })
+```
+
+In this case:
+
+- The filter is { "address.zipcode": "12355" }.
+- The update is { $set: { "borough": "Brooklyn" } }, which uses the $set operator to change the value of the borough field to "Brooklyn".
+
+Therefore, the update will be applied to all documents where the zipcode field has the value 12355.
+
+![Important]
+It is important to note that updateMany() is not an atomic or transactional operation at the collection level. If the update process for 100 documents is interrupted after updating 50, the changes to those 50 documents will remain, while the remaining 50 will not have been updated. To complete the operation, the method would need to be executed again.
+
+---
+## **MongoDB Update Operators**
+
+| Operator         | Description                                                                      | Example                                                                                            |
+| ---------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **$currentDate** | Sets a field to the current date or timestamp.                                   | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$currentDate: {lastModified: true}})`   |
+| **$inc**         | Increments a numeric field by a specified value.                                 | `db.restaurants.updateOne({name:"Wendy'S"}, {$inc: {reviewsCount: 1}})`                            |
+| **$min**         | Updates the field only if the specified value is less than the current value.    | `db.restaurants.updateOne({name:"Dj Reynolds Pub And Restaurant"}, {$min: {"grades.0.score": 1}})` |
+| **$max**         | Updates the field only if the specified value is greater than the current value. | `db.restaurants.updateOne({name:"Riviera Caterer"}, {$max: {"grades.0.score": 15}})`               |
+| **$mul**         | Multiplies a numeric field by a specified value.                                 | `db.restaurants.updateOne({name:"Tov Kosher Kitchen"}, {$mul: {"grades.1.score": 2}})`             |
+| **$rename**      | Renames a field.                                                                 | `db.restaurants.updateOne({name:"Brunos On The Boulevard"}, {$rename: {"cuisine":"foodType"}})`    |
+| **$set**         | Sets the value of a field (creates it if it does not exist).                     | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$set: {borough:"Queens"}})`             |
+| **$setOnInsert** | Sets a value only if a new document is inserted (upsert).                        | `db.restaurants.updateOne({name:"New Bakery"}, {$setOnInsert:{cuisine:"Bakery"}}, {upsert:true})`  |
+| **$unset**       | Removes a field from the document.                                               | `db.restaurants.updateOne({name:"Wendy'S"}, {$unset: {address: ""}})`                              |
+
+
+---
+
+**MongoDB Update Operators – Array**
+
+| Operator      | Description                                                                 | Example                                                                                                                                                              |
+| ------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **$**         | Updates the first array element that matches the query.                     | `db.restaurants.updateOne({"grades.grade":"B"}, {$set: {"grades.$.score": 10}})`                                                                                     |
+| **$[]**       | Updates all elements in an array for a document that matches the query.     | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$set: {"grades.$[]": {score: 5}}})`                                                                       |
+| **$[<id>]**   | Updates array elements that match a condition specified in `arrayFilters`.  | `db.restaurants.updateOne({name:"Tov Kosher Kitchen"}, {$set: {"grades.$[elem].score": 8}}, {arrayFilters:[{"elem.grade":"A"}]})`                                    |
+| **$addToSet** | Adds elements to an array only if they don’t already exist (no duplicates). | `db.restaurants.updateOne({name:"Dj Reynolds Pub And Restaurant"}, {$addToSet: {tags: "popular"}})`                                                                  |
+| **$pop**      | Removes the first (-1) or last (1) element from an array.                   | `db.restaurants.updateOne({name:"Riviera Caterer"}, {$pop: {grades: -1}})`                                                                                           |
+| **$pull**     | Removes elements from an array that match a condition.                      | `db.restaurants.updateOne({name:"Tov Kosher Kitchen"}, {$pull: {grades: {grade:"Z"}}})`                                                                              |
+| **$pullAll**  | Removes multiple specified elements from an array.                          | `db.restaurants.updateOne({name:"Brunos On The Boulevard"}, {$pullAll: {grades: [{score:38},{score:13}]}})`                                                          |
+| **$push**     | Adds an element to an array.                                                | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$push: {grades: {date:new Date(), grade:"A", score:5}}})`                                                 |
+| **$each**     | Adds multiple elements to an array (used with `$push` or `$addToSet`).      | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$push: {grades: {$each:[{date:new Date(), grade:"B", score:7},{date:new Date(), grade:"A", score:9}]}}})` |
+
+--- 
+
+**MongoDB Update Operators – Modifiers Avanzados**
+
+| Operator / Modifier | Description                                                                      | Example                                                                                                                                                              |
+| ------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **$bit**            | Performs bitwise operations on a numeric field (AND, OR, XOR).                   | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$bit: {reviewsCount: {or: 2}}})`                                                                          |
+| **$currentDate**    | Sets a field to the current date or timestamp.                                   | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$currentDate: {lastModified: true}})`                                                                     |
+| **$setOnInsert**    | Sets a value only if a new document is inserted (upsert).                        | `db.restaurants.updateOne({name:"New Bakery"}, {$setOnInsert:{cuisine:"Bakery"}}, {upsert:true})`                                                                    |
+| **$inc**            | Increments a numeric field by a specified value.                                 | `db.restaurants.updateOne({name:"Wendy'S"}, {$inc: {reviewsCount: 1}})`                                                                                              |
+| **$min**            | Updates a field only if the new value is less than the current value.            | `db.restaurants.updateOne({name:"Dj Reynolds Pub And Restaurant"}, {$min: {"grades.0.score": 1}})`                                                                   |
+| **$max**            | Updates a field only if the new value is greater than the current value.         | `db.restaurants.updateOne({name:"Riviera Caterer"}, {$max: {"grades.0.score": 15}})`                                                                                 |
+| **$mul**            | Multiplies a numeric field by a specified value.                                 | `db.restaurants.updateOne({name:"Tov Kosher Kitchen"}, {$mul: {"grades.1.score": 2}})`                                                                               |
+| **$rename**         | Renames a field.                                                                 | `db.restaurants.updateOne({name:"Brunos On The Boulevard"}, {$rename: {"cuisine":"foodType"}})`                                                                      |
+| **$set**            | Sets the value of a field (creates it if it does not exist).                     | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$set: {borough:"Queens"}})`                                                                               |
+| **$unset**          | Removes a field from the document.                                               | `db.restaurants.updateOne({name:"Wendy'S"}, {$unset: {address: ""}})`                                                                                                |
+| **$addToSet**       | Adds a value to an array only if it does not exist.                              | `db.restaurants.updateOne({name:"Dj Reynolds Pub And Restaurant"}, {$addToSet: {tags: "popular"}})`                                                                  |
+| **$push**           | Adds an element to an array.                                                     | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$push: {grades: {date:new Date(), grade:"A", score:5}}})`                                                 |
+| **$pull**           | Removes elements from an array matching a condition.                             | `db.restaurants.updateOne({name:"Tov Kosher Kitchen"}, {$pull: {grades: {grade:"Z"}}})`                                                                              |
+| **$each**           | Adds multiple elements to an array (used with `$push` or `$addToSet`).           | `db.restaurants.updateOne({name:"Morris Park Bake Shop"}, {$push: {grades: {$each:[{date:new Date(), grade:"B", score:7},{date:new Date(), grade:"A", score:9}]}}})` |
+| **Array Filters**   | `$[<id>]` updates only array elements that match a condition via `arrayFilters`. | `db.restaurants.updateOne({name:"Tov Kosher Kitchen"}, {$set: {"grades.$[elem].score": 8}}, {arrayFilters:[{"elem.grade":"A"}]})`                                    |
+
+---
