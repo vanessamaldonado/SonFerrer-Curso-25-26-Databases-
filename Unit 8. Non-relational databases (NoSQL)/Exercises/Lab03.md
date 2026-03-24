@@ -1,7 +1,7 @@
 ## Lab03: UPDATE en MongoDB
 
 1. Crear la base de datos `LabTestDB` y la colección `clientes`.
-2. Utiliza el archivo `clientes.json` para precargar datos: [download link](./BBDD/clientes.json)
+2. Utiliza el archivo `clientes.json` para precargar datos: [download link](../BBDD/clientes.json)
 3. Verifica que la colección `clientes` no está vacía.
 
 ## Parte 1: updateOne()
