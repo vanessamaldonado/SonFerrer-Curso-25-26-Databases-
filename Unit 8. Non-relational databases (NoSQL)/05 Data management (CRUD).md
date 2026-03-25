@@ -170,11 +170,9 @@ db.<collection>.updateOne( <filtro>, <actualización>, { <opciones> } );
 
 This method accepts three arguments:
 
-`<filter>`: A query document that specifies the criteria for selecting the document to update. If more than one document matches, only the first one found will be updated.
-
-`<update>`: An update document containing the operators (such as $set, $push, etc.) that define the changes to be made to the document.
-
-`<options>`: An optional document that may include parameters such as upsert, which, when set to true, inserts a new document if none matches the filter.
+<filter>: A query document that specifies the criteria for selecting the document to update. If more than one document matches, only the first one found will be updated.
+<update>: An update document containing the operators (such as $set, $push, etc.) that define the changes to be made to the document.
+<options>: An optional document that may include parameters such as upsert, which, when set to true, inserts a new document if none matches the filter.
 
 If the `updateOne()` filter matches multiple documents, the method will update only the first document it finds that meets the search criteria, since this method is specifically designed to modify a single document. If you want to update all documents that match a filter, you should use the `updateMany()` method.
 
@@ -375,11 +373,11 @@ db.<collection>.updateMany(
 
 Next, we detail its arguments:
 
-`<filter>`: This argument is a query document that defines the criteria for selecting the documents to be updated. If omitted (by passing an empty document {}), all documents in the collection will be updated. For example, { "estado": "pendiente" } would update only the documents where the estado field has the value "pendiente".
+<filter>: This argument is a query document that defines the criteria for selecting the documents to be updated. If omitted (by passing an empty document {}), all documents in the collection will be updated. For example, { "estado": "pendiente" } would update only the documents where the estado field has the value "pendiente".
 
-`<update>`: This document specifies the changes to be applied to the selected documents. Update operators such as $set, $inc, $unset, etc., are generally used to modify existing fields, add new ones, or remove them. It is crucial to use these operators to avoid replacing the entire document, because without them, updateMany() would simply overwrite the existing document with the update document.
+<update>: This document specifies the changes to be applied to the selected documents. Update operators such as $set, $inc, $unset, etc., are generally used to modify existing fields, add new ones, or remove them. It is crucial to use these operators to avoid replacing the entire document, because without them, updateMany() would simply overwrite the existing document with the update document.
 
-`<options>`: This optional argument is a document containing additional options for the operation, such as upsert: true, which creates a new document if none match the filter.
+<options>: This optional argument is a document containing additional options for the operation, such as upsert: true, which creates a new document if none match the filter.
 
 **Practical example of using the updateMany() method:**
 
@@ -487,6 +485,30 @@ db.establishment.deleteOne(
 )
 ```
 
+**Example `writeConcern`:**
+
+Delete an establishment with write confirmation replicated to at least 2 nodes of the replica set.
+
+```javascript
+db.establishment.deleteOne(
+  { name: "Rucabruna 4" },
+  { writeConcern: { w: 2, wtimeout: 5000 } } // w: 2 nodos, timeout: 5 segundos
+)
+```
+**Example `collation`:**
+
+Delete a document whose name matches “rucabruna 4”, ignoring uppercase and lowercase letters.
+
+```javascript
+db.establishment.deleteOne(
+  { name: "rucabruna 4" },
+  { collation: { locale: "en", strength: 2 } } 
+  // strength: 2 → ignora mayúsculas/minúsculas
+)
+```
+
+---
+
 ### Method deleteMany()
 
 The `deleteMany()` method is used to delete one or multiple documents that match the specified criteria. Its syntax is as follows:
@@ -514,3 +536,118 @@ db.<collection>.deleteMany({
 })
 ```
 This will delete all documents selected by the filter document.
+
+**Example `writeconcern`:**
+Delete all establishments with a postal code, ensuring that the operation is written to the server's journal.
+
+
+```javascript
+db.establishment.deleteMany(
+  { "address.zipcode": "12355" },
+  { writeConcern: { j: true } } // j: true asegura que se escribe en el journal
+)
+```
+
+**Example `collation`:**
+
+Delete all establishments whose name starts with "café", regardless of accents.
+
+```javascript
+db.establishment.deleteMany(
+  { name: { $regex: "^cafe" } },
+  { collation: { locale: "fr", strength: 1 } } 
+  // strength: 1 → ignora acentos y mayúsculas
+)
+```
+
+**Example `hint`:**
+
+Delete all establishments with a specific zipcode using a compound index. 
+
+```javascript
+db.establishment.deleteMany(
+  { "address.zipcode": "12355" },
+  { hint: { "address.zipcode": 1 } } // fuerza uso del índice en el campo zipcode
+)
+```
+
+---
+
+# Comparison Operators in MongoDB
+
+| Operator | Description                          | Example                            |
+| -------- | ------------------------------------ | ---------------------------------- |
+| `$eq`    | Equal to                             | `{ edad: { $eq: 25 } }`            |
+| `$ne`    | Not equal to                         | `{ edad: { $ne: 25 } }`            |
+| `$gt`    | Greater than                         | `{ edad: { $gt: 18 } }`            |
+| `$gte`   | Greater than or equal to             | `{ edad: { $gte: 18 } }`           |
+| `$lt`    | Less than                            | `{ edad: { $lt: 65 } }`            |
+| `$lte`   | Less than or equal to                | `{ edad: { $lte: 65 } }`           |
+| `$in`    | Matches any value in an array        | `{ estado: { $in: ["A", "B"] } }`  |
+| `$nin`   | Does not match any value in an array | `{ estado: { $nin: ["A", "B"] } }` |
+
+
+**Example:**
+
+```javascript
+db.usuarios.find({
+  edad: { $gte: 18, $lte: 30 },
+  estado: { $in: ["activo", "pendiente"] }
+})
+```
+
+# Logical Operators in MongoDB
+
+| Operator | Description                    | Example                                                       |
+| -------- | ------------------------------ | ------------------------------------------------------------- |
+| `$and`   | Matches all conditions         | `{ $and: [ { edad: { $gt: 18 } }, { estado: "activo" } ] }`   |
+| `$or`    | Matches at least one condition | `{ $or: [ { edad: { $lt: 18 } }, { edad: { $gt: 65 } } ] }`   |
+| `$nor`   | Matches none of the conditions | `{ $nor: [ { estado: "inactivo" }, { edad: { $lt: 18 } } ] }` |
+| `$not`   | Negates a condition            | `{ edad: { $not: { $gt: 18 } } }`                             |
+
+**Example:**
+
+```javascript
+db.usuarios.find({
+  $or: [
+    { edad: { $lt: 18 } },
+    { edad: { $gt: 65 } }
+  ],
+  estado: "activo"
+})
+```
+
+# Element Operators
+
+| Operator  | Description                | Example                        |
+| --------- | -------------------------- | ------------------------------ |
+| `$exists` | Checks if the field exists | `{ email: { $exists: true } }` |
+| `$type`   | Field data type            | `{ edad: { $type: "int" } }`   |
+
+**Examples:**
+
+```javascript
+db.users.find({ age: { $exists: true } })
+db.users.find({ name: { $type: "string" } })
+```
+
+# Array Operators in MongoDB
+
+| Operator     | Description                                                         | Example                                             |
+| ------------ | ------------------------------------------------------------------- | --------------------------------------------------- |
+| `$all`       | Matches arrays containing all specified elements                    | `{ tags: { $all: ["js", "mongodb"] } }`             |
+| `$elemMatch` | Matches documents with array elements that meet multiple conditions | `{ scores: { $elemMatch: { $gt: 80, $lt: 100 } } }` |
+| `$size`      | Matches arrays with a specific number of elements                   | `{ tags: { $size: 3 } }`                            |
+
+
+**Examples:**
+
+```javascript
+db.users.find({ tags: { $all: ["node", "db"] } })
+
+db.users.find({
+  scores: { $elemMatch: { $gt: 70, $lt: 90 } }
+})
+
+db.users.find({ tags: { $size: 2 } })
+```
