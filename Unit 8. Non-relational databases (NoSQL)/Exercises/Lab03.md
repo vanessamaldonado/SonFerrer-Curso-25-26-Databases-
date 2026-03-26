@@ -60,3 +60,251 @@
     - añade "hogar" a categorias_favoritas (sin duplicados)
 33. Actualizar campo anidado: Cambia la ciudad dentro de direccion del cliente con _id: "CL16" a "Tijuana".
 
+
+---
+
+
+<details><summary>Mostrar Solución Parte 1</summary>
+
+```javascript
+use LabTestDB
+db.createCollection("clientes")
+db.clientes.find()
+
+//1
+db.clientes.updateOne(
+ { _id: "CL1" },
+ { $set: { nombre: "William Sun" } }
+)
+
+//2
+db.clientes.updateOne(
+ { email: "john.booth@example.com" },
+ { $set: { "preferencias.notificaciones": true } }
+)
+
+//3
+db.clientes.updateOne(
+ { _id: "CL2" },
+ { $inc: { puntos_fidelidad: 50 } }
+)
+
+//4
+db.clientes.updateOne(
+ { _id: "CL999" },
+ { $set: { nombre: "Nuevo Cliente", puntos_fidelidad: 10 } },
+ { upsert: true }
+)
+
+//5
+db.clientes.updateOne(
+ { _id: "CL3" },
+ { $push: { "preferencias.categorias_favoritas": "juguetes" } }
+)
+
+//6
+db.clientes.updateOne(
+ { _id: "CL1" },
+ { $set: { estatus: "verificado" } }
+)
+
+//7
+db.clientes.updateOne(
+ { _id: "CL4" },
+ { $unset: { telefono: "" } }
+)
+
+//8
+db.clientes.updateOne(
+ { _id: "CL3" },
+ {
+   $push: {
+     "preferencias.categorias_favoritas": {
+       $each: ["música", "deportes"]
+     }
+   }
+ }
+)
+
+//9
+db.clientes.updateOne(
+ { _id: "CL10" },
+ { $inc: { puntos_fidelidad: 10 } }
+)
+
+//10
+db.clientes.updateOne(
+ { _id: "CL5" },
+ { $set: { "direccion.ciudad": "Valencia" } }
+)
+```
+
+</details>
+
+---
+
+<details><summary>Mostrar Solución Parte 2</summary>
+
+```javascript
+use LabTestDB
+db.clientes.find()
+
+//11
+db.clientes.updateMany(
+ { estatus: "inactivo" },
+ { $set: { estatus: "suspendido" } }
+)
+
+//12
+db.clientes.updateMany(
+ {},
+ { $push: { "preferencias.categorias_favoritas": "hogar" } }
+ //$addToSet: { "preferencias.categorias_favoritas": "hogar" }
+)
+
+//13
+db.clientes.updateMany(
+ { puntos_fidelidad: { $lt: 50 } },
+ { $set: { puntos_fidelidad: 50 } }
+)
+
+//14
+db.clientes.updateMany(
+ { "preferencias.notificaciones": true },
+ { $set: { notificacion_activa: true } }
+)
+
+//15
+db.clientes.updateMany(
+ { telefono: null },
+ { $set: { telefono: "+34-000-000000" } }
+)
+
+//16
+db.clientes.updateMany(
+ { email: /@hotmail\.com$/ },
+ { $set: { email: "actualizado@dominio.com" } }
+)
+
+//17
+db.clientes.updateMany(
+ {},
+ { $unset: { comentarios: "" } }
+)
+
+//18
+db.clientes.updateMany(
+ { puntos_fidelidad: { $gte: 900 } },
+ { $inc: { puntos_fidelidad: 100 } }
+)
+
+//19
+db.clientes.updateMany(
+ { ciudad: "Puebla" },
+ { $set: { actualizado: true } }
+)
+
+//20
+db.clientes.updateMany(
+ { ciudad: "Guadalajara", estatus: "activo" },
+ { $set: { zona_prioritaria: true } }
+)
+```
+
+</details>
+
+--- 
+
+<details><summary>Mostrar Solución Casos adicionales</summary>
+
+```javascript
+use LabTestDB
+
+//21
+db.clientes.updateMany(
+ {},
+ { $set: { actualizado_por: "sistema" } }
+)
+
+//22
+db.clientes.updateOne(
+ { _id: "CL6" },
+ { $set: { historial_acceso: [] } }
+)
+
+//23
+db.clientes.updateOne(
+ { "metodos_pago.tipo": "PayPal" },
+ { $pull: { metodos_pago: { tipo: "PayPal" } } }
+)
+
+//24
+db.clientes.updateOne(
+ { _id: "CL7", "historial_acceso.dispositivo": "iPad" },
+ { $set: { "historial_acceso.$.dispositivo": "Tablet" } }
+)
+
+//25
+db.clientes.updateOne(
+ { _id: "CL8" },
+ {
+   $push: {
+     "preferencias.categorias_favoritas": {
+       $each: ["música", "deportes"]
+     }
+   }
+ }
+)
+
+//26
+db.clientes.updateOne(
+ { _id: "CL10" },
+ { $currentDate: { ultima_actualizacion: true } }
+)
+
+//27
+db.clientes.updateOne(
+ { _id: "CL11" },
+ { $min: { puntos_fidelidad: 100 } }
+)
+
+//28
+db.clientes.updateOne(
+ { _id: "CL12" },
+ { $max: { puntos_fidelidad: 900 } }
+)
+
+//29
+db.clientes.updateMany(
+ { "preferencias.notificaciones": false },
+ { $set: { "preferencias.notificaciones": true } }
+)
+
+//30
+db.clientes.updateOne(
+ { _id: "CL13" },
+ { $set: { tags: ["VIP", "reciente"] } }
+)
+
+//31
+db.clientes.updateMany(
+ {},
+ { $rename: { telefono: "telefono_movil" } }
+)
+
+//32
+db.clientes.updateOne(
+ { _id: "CL14" },
+ {
+   $inc: { puntos_fidelidad: 10 },
+   $addToSet: { "preferencias.categorias_favoritas": "hogar" }
+ }
+)
+
+//33
+db.clientes.updateOne(
+ { _id: "CL16" },
+ { $set: { "direccion.ciudad": "Tijuana" } }
+)
+```
+</details>
