@@ -341,8 +341,8 @@ The vertical bar operator (|) allows matching any of multiple patterns. It works
 **Using Special Characters:**
 If the pattern contains characters with special meaning in regular expressions (such as ., *, +, ?, etc.), you must escape them with a backslash (\) to treat them as literal characters.
 
-![Note]
-To search for emails containing “domini.cat”, you must escape the dot (.):
+> [!NOTE]
+>To search for emails containing “domini.cat”, you must escape the dot (.):
 ```javascript
 db.users.find({ "email": { $regex: /domini\.cat/i } })
 ```
