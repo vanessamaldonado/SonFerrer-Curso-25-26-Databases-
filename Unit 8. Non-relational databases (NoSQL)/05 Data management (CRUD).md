@@ -170,9 +170,9 @@ db.<collection>.updateOne( <filtro>, <actualización>, { <opciones> } );
 
 This method accepts three arguments:
 
-<filter>: A query document that specifies the criteria for selecting the document to update. If more than one document matches, only the first one found will be updated.
-<update>: An update document containing the operators (such as $set, $push, etc.) that define the changes to be made to the document.
-<options>: An optional document that may include parameters such as upsert, which, when set to true, inserts a new document if none matches the filter.
+`<filter>`: A query document that specifies the criteria for selecting the document to update. If more than one document matches, only the first one found will be updated.
+`<update>`: An update document containing the operators (such as $set, $push, etc.) that define the changes to be made to the document.
+`<options>`: An optional document that may include parameters such as upsert, which, when set to true, inserts a new document if none matches the filter.
 
 If the `updateOne()` filter matches multiple documents, the method will update only the first document it finds that meets the search criteria, since this method is specifically designed to modify a single document. If you want to update all documents that match a filter, you should use the `updateMany()` method.
 
@@ -373,11 +373,11 @@ db.<collection>.updateMany(
 
 Next, we detail its arguments:
 
-<filter>: This argument is a query document that defines the criteria for selecting the documents to be updated. If omitted (by passing an empty document {}), all documents in the collection will be updated. For example, { "estado": "pendiente" } would update only the documents where the estado field has the value "pendiente".
+`<filter>`: This argument is a query document that defines the criteria for selecting the documents to be updated. If omitted (by passing an empty document {}), all documents in the collection will be updated. For example, { "estado": "pendiente" } would update only the documents where the estado field has the value "pendiente".
 
-<update>: This document specifies the changes to be applied to the selected documents. Update operators such as $set, $inc, $unset, etc., are generally used to modify existing fields, add new ones, or remove them. It is crucial to use these operators to avoid replacing the entire document, because without them, updateMany() would simply overwrite the existing document with the update document.
+`<update>`: This document specifies the changes to be applied to the selected documents. Update operators such as $set, $inc, $unset, etc., are generally used to modify existing fields, add new ones, or remove them. It is crucial to use these operators to avoid replacing the entire document, because without them, updateMany() would simply overwrite the existing document with the update document.
 
-<options>: This optional argument is a document containing additional options for the operation, such as upsert: true, which creates a new document if none match the filter.
+`<options>`: This optional argument is a document containing additional options for the operation, such as upsert: true, which creates a new document if none match the filter.
 
 **Practical example of using the updateMany() method:**
 
