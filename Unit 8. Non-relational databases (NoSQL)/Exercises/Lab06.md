@@ -1,4 +1,4 @@
-# Lab05. Ejercicios con varias colecciones
+# Lab06. Ejercicios con varias colecciones
 
 ## Ejercicios de Actualización
 Vamos a trabajar ahora con la colección movies de la BD `sample_mflix`
