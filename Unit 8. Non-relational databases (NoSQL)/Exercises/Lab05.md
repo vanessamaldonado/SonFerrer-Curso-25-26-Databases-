@@ -7,7 +7,7 @@ Trabajaremos sobre la colección `restaurants`. Se trata de mostrar los document
 2. El primer documento de la colección
 3. Los que sean de cocina griega (Greek)
 4. Los que sean de cocina griega y tengan una nota (grade) de B
-5. Los que estén en una determinada ciudad
+5. Los que estén en una determinada dirección ('Stillwell Avenue')
 6. Los que tengan restaurante id 40370781, 40369158 y 40367677
 7. Los que hayan tenido una valoración (score) de al menos 30 puntos
 8. Los que sean de cocina Italian o Mexican
