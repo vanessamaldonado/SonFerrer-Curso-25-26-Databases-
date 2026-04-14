@@ -255,17 +255,17 @@ To solve these challenges, MongoDB provides the $expr operator. Think of it as a
 
 Using the $expr operator, you can:
 
-- Compare two fields in the same document:
+- Compare two fields within the same document: for example, find all documents where the total field is greater than the subtotal field.
 ```javascript
 { $expr: { $gt: [ "$total", "$subtotal" ] } }
 ```
 
-- Perform mathematical calculations in a query:
+- Perform mathematical calculations in a query: for example, find documents where the price is 20% higher than another price.
 ```javascript
 { $expr: { $gt: [ "$final_price", { $multiply: [ "$base_price", 1.2 ] } ] } }
 ```
 
-- Convert a field’s data type for comparison:
+- Convert the data type of a field for comparison: this is the case covered in the previous example, where we convert a string to an integer in order to perform a numeric comparison.
 ```javascript
 { $expr: { $gt: [ { $toInt: "$string_field" }, 100 ] } }
 ```
