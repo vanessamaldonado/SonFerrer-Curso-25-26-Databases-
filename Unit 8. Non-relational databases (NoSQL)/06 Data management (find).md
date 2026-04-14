@@ -329,6 +329,34 @@ Where:
 
 You can also use the `$options` parameter to modify search behavior, for example, to make it case-insensitive (i).
 
+**Regex Options:**
+Modifiers can be added to adjust the search:
+
+- i: Case-insensitive (e.g., /pattern/i).
+- m: Multiline.
+- x: Ignore whitespace.
+- s: Allows the dot . to match newline characters.
+
+**Common Examples:**
+
+- Partial match:
+```javascript
+db.usuarios.find({ nombre: { $regex: "maria" } })
+```
+Searches for documents where "nombre" contains "maria".
+
+- Case insensitive:
+```javascript
+db.usuarios.find({ nombre: { $regex: /maria/i } }) 
+```
+Searches for "Maria", "MARIA", "maria", etc.
+
+- Start of string:
+```javascript
+db.usuarios.find({ nombre: { $regex: /^Mar/ } }) 
+```
+Searches for names that start with "Mar".
+
 **Using Anchors (^ and $):**
 For more precise searches, you can use anchors to specify the beginning or end of a string:
 
