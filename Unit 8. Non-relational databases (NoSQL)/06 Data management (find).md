@@ -277,7 +277,7 @@ Sometimes you may want to use comparison operators on numeric values that are st
 ```javascript
 {
   "_id": {
-    "$oid": "69c2aaca3f2512eb343476fd"
+    "$_id": "69c2aaca3f2512eb343476fd"
   },
   "address": {
     "building": "1007",
