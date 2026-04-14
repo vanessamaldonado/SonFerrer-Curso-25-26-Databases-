@@ -1,5 +1,13 @@
 # Lab06. Ejercicios con varias colecciones
 
+Crear una nueva BBDD llamada 'sample_mflix' con las colecciones: 
+- comments
+- movies
+- sessions
+- theaters
+- users
+
+
 ## Ejercicios de Actualización
 Vamos a trabajar ahora con la colección movies de la BD `sample_mflix`
 
@@ -13,20 +21,6 @@ Vamos a trabajar ahora con la colección movies de la BD `sample_mflix`
 8. Actualiza el campo cast de la película “Civilization” añadiendole el actor “Perico de los Palotes”
 9. Actualiza el campo year de las peliculas con duración (runtime) mayor a 100 para que sea 100 (es decir, no habrá ninguna duración mayor que 100)
 10. Actualiza todas las películas cuya duración (runtime) sea de 100, para que no tengan el género (genres) “Action”. Es decir, quitarle el género Action del array.
-
-## Ejercicios de Borrado
-Usando la colección `movies`:
-
-1. Borra una específica, usando su _id (busca uno cualquiera)
-2. Borra las que sean del año 1985
-3. Borra las que sean el género Action
-4. Borra las que tengan una puntuación (rating) en imdb menor a 3.4
-5. Borra las que sean se hayan lanzado (released) antes del 15 de Julio del 2001 (ISODate(«2001-07-15»))
-6. Borra la que se titula Meshes of the Afternoon
-7. Borra sólo una que tenga el campo pub_es en verdadero (true)
-8. Borra las que haya dirigido Steven Spielberg
-9.  Borra las películas de entre los años 1950 y 1970 y que tengan menos de 80 votos en imdb
-10. Borrar todos los documentos de la colección
 
 ## Uso de $expr 
 Usando la colección `movies`:
@@ -77,3 +71,17 @@ Usando la colección `users`:
 8. Listar los 5 primeros usuarios en orden alfabético por name
 9. Listar los usuarios cuyo name empiece con "J", ordenados alfabéticamente y mostrar solo 5
 10. Listar todos los usuarios que tengan el campo password definido y mostrar solo los 5 primeros ordenados por name
+
+## Ejercicios de Borrado
+Usando la colección `movies`:
+
+1. Borra una específica, usando su _id (busca uno cualquiera)
+2. Borra las que sean del año 1985
+3. Borra las que sean el género Action
+4. Borra las que tengan una puntuación (rating) en imdb menor a 3.4
+5. Borra las que sean se hayan lanzado (released) antes del 15 de Julio del 2001 (ISODate(«2001-07-15»))
+6. Borra la que se titula Meshes of the Afternoon
+7. Borra sólo una que tenga el campo pub_es en verdadero (true)
+8. Borra las que haya dirigido Steven Spielberg
+9.  Borra las películas de entre los años 1950 y 1970 y que tengan menos de 80 votos en imdb
+10. Borrar todos los documentos de la colección
