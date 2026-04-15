@@ -397,3 +397,138 @@ Pattern explanation:
     - |: Logical “OR” (matches “Ave” or “Avenue”).
     - $: Ensures the pattern appears at the end of the string.
     - $options: "i": Makes the search case-insensitive.
+
+---
+
+## Array Queries
+
+To query arrays in MongoDB, several methods can be used: we can perform basic queries to find documents containing specific values ​​within an array.
+
+We can also use the `$elemMatch` operator to search for documents where one or more array elements meet multiple criteria.
+
+**Exact Match in an Array: Implicit and Explicit Syntax**
+
+To find a document where an array field exactly matches a given array, both in value and order, you can use the `$eq` operator or direct search syntax.
+
+Using the `$eq` operator, the query would be:
+
+```javascript
+db.establishments.find({ campArray: { $eq: [valor1, valor2, valor3]} })
+```
+Using implicit syntax, the query would be as follows:
+
+```javascript
+db. colección.find({ campArray: [valor1, valor2, valor3] })
+```
+These queries will only return documents where `campArray` is exactly [value1, value2, value3].
+
+**Practical example of array searches:**
+
+To search for documents where an array field, such as `address.coord`, exactly matches a given array (both values ​​and order), you can use the `$eq` operator or the direct search syntax. Both options are valid.
+
+```javascript
+db.establishments.find({ 'address.coord': { $eq: [-73.961704, 40.662942]} })
+```
+
+**Matching Array Elements**
+
+To search for documents within an array containing one or more specific values, we use different methods depending on our needs.
+
+- Searching for a single value: To find documents where an array contains a specific value, simply include it directly in the query. MongoDB will search for the value in any position within the array.
+  
+```javascript
+db.colección.find({ campArray: valor })
+```
+This query will return all documents where the `campArray` contains a value, regardless of its position.
+
+- Searching for multiple values ​​with `$in`: If you want to find documents where the array contains at least one of the values ​​from a list, use the `$in` operator.
+  
+```javascript
+db. coleccion.find({ campArray: { $in: [valor1, valor2, valor3] } })
+``` 
+
+**Practical Example of Array Searches (II)**
+
+Example of searching documents where an array contains a specific value:
+
+```javascript
+db.establishments.find({ 'address.coord':  40.662942 })
+```
+This will retrieve all documents where 40.662942 appears as the value of either of the two coordinates in the array of the `coord` field.
+
+**Searching for all elements in an array using `$all`**
+
+The `$all` operator is ideal for searching documents where an array field contains all the elements of a given list, regardless of order or whether the array contains additional elements.
+
+The syntax is as follows:
+
+```javascript
+db.coleccion.find({ campArray: { $all: [valor1, valor2] } })
+```
+This query will select documents where the `campArray` field contains both `value1` and `value2` simultaneously. The order of the values ​​in the query does not affect the result.
+
+**Practical example of using the `$all` operator**
+
+Example of using the `$all` operator
+
+```javascript
+db.establishments.find({ 'address.coord': { $all: [40.662942, -73.961704]} })
+```
+It returns the document containing those coordinates, even though the order of the coordinates is changed.
+
+**Array Size with $size**
+
+To find documents where the array has an exact number of elements, use the `$size` operator. For example, the following query:
+
+```javascript
+db.coleccion.find({ campArray: { $size: 3 } })
+```
+This query will return all documents where the `campArray` contains exactly 3 elements.
+
+**Practical example with `$size`**
+
+Example of using the `$size` operator
+
+```javascript
+db.establishments.find({ grades: { $size: 9 } })
+```
+This will return documents where the array of grades contains 9 elements.
+
+**Array Elements that Satisfy a Condition: The $elemMatch Operator**
+
+If you want to find documents where one or more subdocuments within an array satisfy multiple conditions, the ideal operator is `$elemMatch`. This operator guarantees that all conditions are met within the same array element.
+
+Syntax:
+
+```javascript
+db.coleccion.find({ campArray: { $elemMatch: { campoInterno: valor, otroCampInterno: { $gt: 10 } } } })
+```
+This query is especially useful when the array contains embedded objects. For example, if the `grades` array contains subdocuments with the fields `grade` and `date`, using `$elemMatch` allows us to find only the grades that meet both conditions simultaneously.
+
+**Practical Example of Using the `$elemMatch` Operator**
+
+If you are looking for an establishment with a grade of 'A' and a score of 22, and you run the query shown below:
+
+*Incorrect search example, as it is not guaranteed that both conditions will apply to the same element in the array*
+
+```javascript
+db.establishments.find({ 
+  'grades.grade': 'A',
+   'grades.score': 22
+  })
+```
+Without the `$elemMatch` operator, the query returns documents if both conditions are met, but not necessarily from the same date (the same element in the array), since the query performs a logical AND on the array elements, but not on the same element.
+
+In contrast, `$elemMatch` guarantees that both conditions apply to the same sub-document in the array. Therefore, the query should be as shown below:
+
+*Example of a successful search, as it guarantees that both conditions apply to the same element in the array*
+
+```javascript
+db.establishments.find({ 
+  grades: {
+    $elemMatch: {
+      grade: 'A',
+      score: 22
+    }}
+  })
+```
