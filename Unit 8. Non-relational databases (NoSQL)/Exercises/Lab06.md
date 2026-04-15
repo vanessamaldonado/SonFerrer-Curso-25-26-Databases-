@@ -51,6 +51,7 @@ Usando la colección `movies`:
 11. Listar películas donde cualquier palabra del título empiece con “A” o “E”.
 
 Usando la colección `theater`:
+
 12. Listar el id de los teatros donde el número de dígitos de zipcode sea mayor que 4.
 13. Listar el id de los teatros teatros donde la longitud de city sea mayor a la longitud de state.
 
@@ -64,10 +65,12 @@ Usando la colección `movies`:
 5. Listar el titulo y año de las 5 películas más recientes de “Charles Chaplin”.
 
 Usando la colección `comments`:
+
 6. Listar los 5 comentarios más recientes (mostrar name y date).
 7. Listar los 5 primeros comentarios en orden alfabético por name.
 
 Usando la colección `users`:
+
 8. Listar los 5 primeros usuarios en orden alfabético por name
 9. Listar los usuarios cuyo name empiece con "J", ordenados alfabéticamente y mostrar solo 5
 10. Listar todos los usuarios que tengan el campo password definido y mostrar solo los 5 primeros ordenados por name
