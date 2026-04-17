@@ -139,3 +139,67 @@ db.establishments.find(
 
 ```
 </details>
+
+<details><summary>Mostrar Solución Ejercicios con Base de datos `sample_mflix` colección `movies`</summary>
+
+```javascript
+//1. Encuentra todas las películas con título, idiomas, fecha de estreno, duración, directores, guionistas y países de la colección 'movies' en MongoDB que tengan una duración entre 60 y 90 minutos.
+db.movies.find(
+{ runtime: { $gte: 60, $lte: 90 } },
+{ title: 1, languages: 1, released: 1, runtime: 1, directors: 1, writers: 1, countries: 1 }
+);
+
+//2. Devuelve todas las películas con título, idiomas, sinopsis completa, fecha de estreno, directores, guionistas y países de la colección 'movies' en MongoDB donde se mencione la palabra "metal" en la sinopsis completa.
+db.movies.find(
+{ fullplot: /metal/i },
+{ title: 1, languages: 1, fullplot: 1, released: 1, directors: 1, writers: 1, countries: 1 }
+);
+
+//3. Devuelve todas las películas con título, idiomas, argumento, fecha de estreno, directores, guionistas y países de la colección 'movies' en MongoDB donde se mencione la palabra "beer" en el argumento.
+db.movies.find(
+{ 
+    plot: { $regex: /beer/i } 
+}, 
+{ 
+    title: 1, 
+    languages: 1, 
+    plot: 1, 
+    released: 1, 
+    directors: 1, 
+    writers: 1, 
+    countries: 1 
+})
+
+//4. Encuentra todas las películas con título, idiomas, argumento completo, fecha de estreno, directores, guionistas y países de la colección 'movies' en MongoDB que tengan un argumento completo que contenga la palabra "fire".
+db.movies.find({
+    fullplot: { $regex: /fire/i } 
+}, 
+{ 
+    title: 1, 
+    languages: 1, 
+    fullplot: 1, 
+    released: 1, 
+    directors: 1, 
+    writers: 1, 
+    countries: 1 
+})
+
+//5. Recupera todas las películas con título, idiomas, fecha de estreno, año, directores, guionistas y países de la colección 'movies' en MongoDB que se estrenaron antes del año 1900.
+db.movies.find(
+  {
+    year: { $lt: 1900 },
+    type: "movie"
+  },
+  {
+    title: 1,
+    languages: 1,
+    released: 1,
+    year: 1,
+    directors: 1,
+    writers: 1,
+    countries: 1
+  }
+)
+
+```
+</details>
