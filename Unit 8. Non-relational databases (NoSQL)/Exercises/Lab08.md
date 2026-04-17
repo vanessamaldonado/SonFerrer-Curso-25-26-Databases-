@@ -3,10 +3,10 @@
 ## Ejercicios con Base de datos `restaurant`
 
 1. Escribe una consulta de MongoDB para encontrar todos los restaurantes chinos en Brooklyn.
-2. Escribe una consulta de MongoDB para encontrar el nombre, la dirección y el tipo de cocina de los restaurantes que incluyan la palabra "Pizza" en su menú.
+2. Escribe una consulta de MongoDB para encontrar el nombre, la dirección y el tipo de cocina de los restaurantes que incluyan la palabra "Pizza" en su cuisine.
 3. Escribe una consulta de MongoDB para encontrar el nombre, la dirección y el tipo de cocina de los restaurantes cuyo tipo de cocina termine con la letra 'y'.
 4. Escribe una consulta de MongoDB para encontrar el nombre y la dirección de los restaurantes cuya cocina comience con la letra 'B'.
-5. Escribe una consulta de MongoDB para encontrar el nombre y la dirección de los restaurantes que tienen la palabra "café" en su nombre.
+5. Escribe una consulta de MongoDB para encontrar el nombre y la dirección de los restaurantes que tienen la palabra "coffee" en su nombre.
 6. Escribe una consulta de MongoDB para encontrar el nombre, la dirección y las calificaciones de los restaurantes que tengan al menos una calificación 'A', ninguna calificación 'B' y ninguna calificación 'C'.
 7. Escribe una consulta de MongoDB para encontrar el nombre, la dirección y las calificaciones de los restaurantes que tengan al menos una calificación 'A' y ninguna calificación 'C'.
 8. Escribe una consulta de MongoDB para encontrar el nombre y la dirección de los restaurantes que recibieron una calificación de 'B' o 'C' en una fecha específica ISODate("2013-04-05").
