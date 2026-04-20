@@ -13,26 +13,26 @@ Aggregations use a pipeline, known as **Aggregation Pipeline**, hence the aggreg
 ```javascript
 db.coleccion.aggregate([fase1, fase2, ... faseN])
 ```
-![Note]
+>[!Note]
 MongoDB offers multiple aggregation stages, including:
-
-**$match:** Filters documents that meet specific criteria. If this stage is the first, it optimizes execution by reducing the amount of data that subsequent stages must process. It can also leverage indexes to improve performance.
-
-**$sort:** Sorts the documents received by the pipeline according to the specified fields, either ascending or descending. This stage can leverage an index if placed at the beginning of the pipeline.
-
-**$limit:** Restricts the number of documents that pass to the next stage or to the final result. It makes sense to use it right after a sorting stage.
-
-**$group:** Groups documents according to a key. It is very useful for performing calculations or operations on the grouped data, such as sums, averages, or counters.
-
-**$lookup:** Performs a left outer join to incorporate related data from another collection, similar to how it is done in SQL.
-
-**$unwind:** Unwinds an array field in a document, generating a new document for each element of the array. In other words, it separates the data within an array.
-
-**$project:** Projects fields, that is, properties we are interested in. It also allows us to modify a document or create a subdocument (reshape).
+>
+>**$match:** Filters documents that meet specific criteria. If this stage is the first, it optimizes execution by reducing the amount of data that subsequent stages must process. It can also leverage indexes to improve performance.
+>
+>**$sort:** Sorts the documents received by the pipeline according to the specified fields, either ascending or descending. This stage can leverage an index if placed at the beginning of the pipeline.
+>
+>**$limit:** Restricts the number of documents that pass to the next stage or to the final result. It makes sense to use it right after a sorting stage.
+>
+>**$group:** Groups documents according to a key. It is very useful for performing calculations or operations on the grouped data, such as sums, averages, or counters.
+>
+>**$lookup:** Performs a left outer join to incorporate related data from another collection, similar to how it is done in SQL.
+>
+>**$unwind:** Unwinds an array field in a document, generating a new document for each element of the array. In other words, it separates the data within an array.
+>
+>**$project:** Projects fields, that is, properties we are interested in. It also allows us to modify a document or create a subdocument (reshape).
 
 The following image summarizes the steps of a grouping operation: first, the elements to be grouped are selected using `$match`, the resulting elements are grouped with `$group`, and finally, the total is calculated for the grouped elements using `$sum`:
 
-![mongo](./assets/mongo13.png)
+![mongo](../assets/mongo13.png)
 
 When creating a pipeline, we divide queries into phases, where each phase uses an operator to perform a transformation. Although there's no limit to the number of phases in a query, it's important to note that order matters, and there are optimizations to help the pipeline perform better (for example, using `$match` at the beginning to reduce the amount of data).
 
@@ -250,9 +250,10 @@ On the other hand, if we first limit and then jump, the number of elements is ob
     fabricante: 'Apple',
     precio: 699 }
 ```
-[!Info] **$sample**
-
-If we have a very large dataset and want to test queries with a small number of documents, we can use the `$sample` operator to randomly reduce the number of documents:
+>[!TIP]
+**$sample**
+>
+>If we have a very large dataset and want to test queries with a small number of documents, we can use the `$sample` operator to randomly reduce the number of documents:
 
 ```javascript
 db.productos.aggregate([ { $sample: { size: 3 } } ])
@@ -262,7 +263,8 @@ db.productos.aggregate([ { $sample: { size: 3 } } ])
 
 To separate documents into groups based on a "group key," the `$group` operator is used. The result is one document for each unique group key, similar to `group by` in SQL.
 
-[!Note] Caution:
+>[!Note]
+>Caution:
 > The output of `$group` is unsorted.
 
 In the following example, to reference a product manufacturer, we will use `$manufacturer`, creating a total field that uses `$sum` as an accumulator and adds one unit for each manufacturer found:
@@ -318,7 +320,8 @@ We can also group more than one attribute, so that we have a composite _id. For 
   { _id: { empresa: 'Samsung', tipo: 'Tablets' }, total: 1 }
 ```
 
-[!Important] Always _id
+>[!IMPORTANT]
+>Always _id
 >Every expression in `$group` must specify an `_id` field.
 
 **Common Aggregation Operators**
@@ -663,7 +666,7 @@ Projection within the aggregation framework is much more powerful than in regula
 Example:
 
 ```javascript
-> db.productos.aggregate([
+ db.productos.aggregate([
   {$project:
     {
       _id: 0, //Ocultamos el campo _id
@@ -685,7 +688,8 @@ Example:
   ...
 ```
 
-[!Important] **$set and $unset**
+>[!Important]
+>**$set and $unset**
 > Since MongoDB 4.2, we can use `$set` and `$unset` as an alternative to `$project`, which in some cases simplifies the code, for example, if we only want to add or remove fields from the result of a pipeline stage:
 
 ```javascript
