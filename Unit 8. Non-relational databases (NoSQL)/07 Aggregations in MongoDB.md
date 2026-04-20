@@ -32,7 +32,7 @@ MongoDB offers multiple aggregation stages, including:
 
 The following image summarizes the steps of a grouping operation: first, the elements to be grouped are selected using `$match`, the resulting elements are grouped with `$group`, and finally, the total is calculated for the grouped elements using `$sum`:
 
-![mongo](../assets/mongo13.png)
+![mongo](./assets/mongo13.png)
 
 When creating a pipeline, we divide queries into phases, where each phase uses an operator to perform a transformation. Although there's no limit to the number of phases in a query, it's important to note that order matters, and there are optimizations to help the pipeline perform better (for example, using `$match` at the beginning to reduce the amount of data).
 
