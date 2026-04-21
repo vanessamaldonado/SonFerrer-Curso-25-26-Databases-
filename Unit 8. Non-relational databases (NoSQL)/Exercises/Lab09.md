@@ -3,8 +3,8 @@
 ## Resuelva las siguientes consultas empleando el pipeline de agregaciones:
 
 Crea una nueva base de datos llamada `sample_aggregacions` y crea las colecciones:
-- Ciudades: [Download restaurants.json](../BBDD/ciudades.json)
-- planetas: [Download restaurants.json](../BBDD/planetas.json)
+- Ciudades: [Download ciudades.json](../BBDD/ciudades.json)
+- planetas: [Download planetas.json](../BBDD/planetas.json)
 
 ## Ejercicios con la colección `ciudades`
 1. Mostrar los 3 países con mayor número de ciudades
