@@ -1,4 +1,4 @@
-# Ejercicios MongoDB - Colección Planetas: DeepSeek
+# Ejercicios MongoDB - Colección Planetas
 
 **Contexto:**
 
