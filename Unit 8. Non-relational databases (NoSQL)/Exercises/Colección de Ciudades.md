@@ -1,4 +1,4 @@
-# Ejercicios de MongoDB: Consultas sobre Colección de Ciudades: DeepSeek
+# Ejercicios de MongoDB: Consultas sobre Colección de Ciudades
 
 **Contexto:**
 
