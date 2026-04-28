@@ -241,3 +241,231 @@ db.planetas.find({})
 
 ```
 </details>
+
+<details><summary>Ejercicio 2: Agregaciones</summary>
+
+```javascript
+//1. Agrupar planetas por clima y contar cuántos hay de cada tipo.
+db.planetas.aggregate([
+  {
+    $group: {
+      _id: "$climate", // Agrupa por tipo de clima
+      total: { $sum: 1 } // Cuenta cuántos planetas hay en cada clima
+    }
+  }
+])
+
+
+//2. Mostrar solo el nombre y diámetro de los planetas con clima “frozen”.
+db.planetas.aggregate([
+  {
+    $match: { climate: "frozen" } // Filtra planetas con clima frozen
+  },
+  {
+    $project: {
+      name: 1, // Muestra nombre
+      diameter: 1, // Muestra diámetro
+      _id: 0 // Oculta _id
+    }
+  }
+])
+
+//3. Encontrar el diámetro promedio de todos los planetas.
+db.planetas.aggregate([
+  {
+    $match: {
+      diameter: { $nin: ["0", "unknown", null] } // Filtra valores inválidos
+    }
+  },
+  {
+    $group: {
+      _id: null, // Un solo grupo global
+      promedio: {
+        $avg: { $toInt: "$diameter" } // Convierte a número y calcula media
+      }
+    }
+  }
+])
+// _id: null cuando no quiero agrupar por ningún campo en concreto. Quiero tratar TODOS los documentos como un único grupo.
+
+//4. Listar planetas que tengan más de 2 residentes.
+db.planetas.aggregate([
+  {
+    $match: {
+      $expr: {
+        $gt: [
+          { $size: "$residents" }, // Tamaño del array
+          2 // Mayor que 2
+        ]
+      }
+    }
+  }
+])
+
+//5. Ordenar planetas por diámetro de mayor a menor y mostrar solo los 3 primeros.
+db.planetas.aggregate([
+  {
+    $match: {
+      diameter: { $nin: ["0", "unknown", null] } // Filtra valores inválidos
+    }
+  },
+  {
+    $addFields: {
+      diameter_num: { $toInt: "$diameter" } // Convierte a número
+    }
+  },
+  {
+    $sort: { diameter_num: -1 } // Ordena de mayor a menor
+  },
+  {
+    $limit: 3 // Toma los 3 primeros
+  }
+])
+
+//6. Mostrar los 5 planetas con menor período de rotación.
+db.planetas.aggregate([
+  {
+    $match: {
+      rotation_period: { $ne: "unknown" } // Filtra valores válidos
+    }
+  },
+  {
+    $addFields: {
+      rotation_int: { $toInt: "$rotation_period" } // Convierte a número
+    }
+  },
+  {
+    $sort: { rotation_int: 1 } // Ordena de menor a mayor
+  },
+  {
+    $limit: 5 // Toma los 5 más pequeños
+  }
+])
+
+//7. Calcular la población total de todos los planetas (ignorando “unknown”).
+db.planetas.aggregate([
+  {
+    $match: {
+      population: { $nin: ["unknown", null] } // Filtra valores inválidos
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      totalPoblacion: {
+        $sum: { $toLong: "$population" } // Convierte y suma
+      }
+    }
+  }
+])
+
+//8. Agrupar por terreno y contar planetas, mostrando solo los terrenos con más de 2 planetas.
+db.planetas.aggregate([
+  {
+    $unwind: "$terrain" // Separa cada terreno
+  },
+  {
+    $group: {
+      _id: "$terrain", // Agrupa por terreno
+      total: { $sum: 1 } // Cuenta planetas
+    }
+  },
+  {
+    $match: {
+      total: { $gt: 2 } // Solo terrenos con más de 2 planetas
+    }
+  }
+])
+
+//9. Encontrar cuántos planetas tienen superficie de agua igual a 0.
+db.planetas.aggregate([
+  {
+    $match: { surface_water: "0" } // Filtra valor exacto
+  },
+  {
+    $count: "total" // Cuenta resultados
+  }
+])
+
+//10. Hacer una lista única de todas las URLs de películas que aparecen en todos los planetas.
+db.planetas.aggregate([
+  {
+    $unwind: "$films" // Separa cada película
+  },
+  {
+    $group: {
+      _id: "$films" // Elimina duplicados
+    }
+  }
+])
+
+//11. Mostrar cada residente individualmente con su planeta correspondiente.
+db.planetas.aggregate([
+  {
+    $unwind: "$residents" // Separa cada residente
+  },
+  {
+    $project: {
+      name: 1, // Nombre del planeta
+      residente: "$residents" // URL del residente
+    }
+  }
+])
+
+//12. Contar cuántos residentes tiene cada planeta.
+db.planetas.aggregate([
+  {
+    $project: {
+      name: 1, // Nombre planeta
+      numResidents: {
+        $size: { $ifNull: ["$residents", []] } // Si residents es null → usa [] (array vacío)
+      }
+    }
+  }
+])
+
+//13. Mostrar para cada planeta: nombre, número de películas y número de residentes.
+db.planetas.aggregate([
+    $project: {
+      name: 1, // Nombre planeta
+      numFilms: {
+        $size: { $ifNull: ["$films", []] } // Si films es null → usa [] (array vacío)
+      },
+      numResidents: {
+        $size: { $ifNull: ["$residents", []] } // Si residents es null → usa [] (array vacío)
+    }
+  }
+])
+
+//14. Encontrar planetas que aparezcan en más de 2 películas.
+db.planetas.aggregate([
+  {
+    $project: {
+      name: 1,
+      numFilms: {
+        $size: { $ifNull: ["$films", []] } // Si films es null o no existe → lo reemplaza por [] (array vacío)
+      }
+    }
+  },
+  {
+    $match: {
+      numFilms: { $gt: 2 } // Filtra >2 películas
+    }
+  }
+])
+
+//15. Calcular el promedio de residentes por planeta.
+db.planetas.aggregate([
+  {
+    $group: {
+      _id: null,
+      promedioResidentes: {
+        $avg: {
+          $size: { $ifNull: ["$residents", []] } // Si residents es null → usa [] (array vacío)
+        }
+      }
+    }
+  }
+])
+```
+</details>
