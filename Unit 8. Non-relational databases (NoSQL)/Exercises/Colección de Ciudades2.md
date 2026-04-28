@@ -61,3 +61,187 @@ medio de habitantes
 3. Eliminar la ciudad “Lab-Sar”
 4. Eliminar todas las ciudades del país “Inventado”
 5. Reemplazar completamente el documento de “Ushuaia” con otros valores
+
+---
+
+<details><summary>Ejercicio 1: Operaciones updateOne y updateMany</summary>
+
+```javascript
+//1. Añadir a “Buenos Aires” el campo capital al valor cierto.
+db.ciudades.updateOne(
+ {name: "Buenos Aires"},
+ {$set: {capital: true}}
+)
+
+//2. Aumentar en 1000 la población de todas las ciudades de Argentina (AR)
+db.ciudades.updateMany(
+ {country: "AR"},
+ {$inc: { population : 1000}}
+)
+
+//3. Aumentar un 5 % la población de ciudades con más de 1,000,000 habitantes
+db.ciudades.updateMany(
+ { population : {$gt: 1000000}} ,
+ {$mul: { population : 1.05}}
+)
+
+//4. Establecer que ninguna ciudad tenga menos de 1000 habitantes
+db.ciudades.updateMany(
+ { population : {$lt: 1000}} ,
+ {$min: { population : 1000}}
+)
+// Solo actualiza si población actual <1000
+
+//5. Cambiar el campo name a nombre en toda la colección
+db.ciudades.updateMany(
+ {},
+ {$rename: {"name": "nombre"}}
+)
+
+//6. Eliminar el campo timezone de las ciudades de Andorra (AD)
+db.ciudades.updateMany(
+ {country: "AD"},
+ {$unset: {timezone : ""}}
+)
+
+//7. Actualizar ciudades con población entre 50,000 y 100,000 para añadir categoria, con el valor "media".
+db.ciudades.updateMany(
+ { population : {$gte: 50000 , $lte: 100000}} ,
+ {$set: { categoria : "media"}}
+)
+
+//8. Actualizar la ciudad de Mendoza para cambiar sus coordenadas a longitud -68.81667 y latitud -32.88333.
+db.ciudades.updateOne(
+ {nombre: "Mendoza"},
+ {
+    $set: {
+    "location.longitude": -68.81667 ,
+    "location.latitude": -32.88333
+    }
+ }
+)
+
+//9. Para ciudades que empiezan por 'San', añadir el campo 'tiene_santo' al valor cierto.
+db.ciudades.updateMany(
+ {nombre: {$regex: /^San/}},
+ {$set: { tiene_santo : true}}
+)
+
+//10. Usar $currentDate para añadir un campo actualizado_en, con la fecha actual, a las ciudades de España. NOTA: En caso de que no exista ninguna ciudad española, añadir alguna.
+
+//Añadimos una ciudad española
+db.ciudades.insertOne({
+ nombre: "Madrid",
+ country: "ES",
+ population : 3200000
+})
+
+//Luego actualizamos:
+db.ciudades.updateMany(
+ {country: "ES"},
+ { $currentDate : { actualizado_en : true}}
+)
+```
+</details>
+
+<details><summary>Ejercicio 2: Operaciones con Arrays</summary>
+
+```javascript
+//Preparación:
+db.ciudades.updateMany(
+ {country: "AR"},
+ {$set: { atracciones : ["centro", "museo"]}}
+)
+
+//1. Añadir parque a atracciones de Córdoba, en Argentina
+db.ciudades.updateOne(
+ {nombre: "Córdoba"},
+ {$push: { atracciones : "parque"}}
+)
+
+//2. Añadir, con una sola llamada a la función correspondiente, los valores “teatro“ y “restaurante” a atracciones de la ciudad de “Rosario”.
+db.ciudades.updateOne(
+ {nombre: "Rosario"},
+ {$push: { atracciones : {$each: ["teatro", "restaurante"]}}}
+)
+
+//3. Añadir el valor 'centro` a atracciones de nombre `Mendoza` (solo si no existe)
+db.ciudades.updateOne(
+ {nombre: "Mendoza"},
+ { $addToSet : { atracciones : "centro"}}
+)
+
+//4. Quitar museo de atracciones en todas las ciudades argentinas
+db.ciudades.updateMany(
+ {country: "AR"},
+ {$pull: { atracciones : "museo"}}
+)
+
+//5. Quitar centro y parque de atracciones de “Buenos Aires”, mediante una sola llamada a función
+db.ciudades.updateOne(
+ {nombre: "Buenos Aires"},
+ {$pullAll : { atracciones : ["centro", "parque"]}}
+)
+
+//6. Añadir un campo `codigos_postales` con valor [5000] a “Córdoba”, de Argentina, y luego quitar el primer elemento.
+
+//Primero añadimos:
+db.ciudades.updateOne(
+ {nombre: "Córdoba"},
+ {$set: { codigos_postales : ["5000", "5001", "5002"]}}
+)
+
+//Luego eliminamos primer elemento:
+db.ciudades.updateOne(
+ {nombre: "Córdoba"},
+ {$pop: { codigos_postales : -1}} 
+)
+
+//Con 1 quita el último elemento con -1 el primero
+```
+</details>
+
+<details><summary>Ejercicio 3: insert y delete</summary>
+
+```javascript
+//1. Añadir una ciudad que se llame “Barcelona” en Argentina, con una población de un millón y medio de habitantes
+db.ciudades.insertOne({
+ name: "Barcelona",
+ country: "AR",
+ population : 1500000
+})
+
+//2. Añadir 2 ciudades de un país ficticio “Inventado”
+db.ciudades.insertMany([
+ {
+    name: "Ciudad Test 1",
+    country: "TEST",
+    population : 10000
+ },
+ {
+    name: "Ciudad Test 2",
+    country: "TEST",
+    population : 20000
+ }
+])
+
+//3. Eliminar la ciudad “Lab-Sar”
+db.ciudades.deleteOne({ name: "Lab-Sar"})
+
+//4. Eliminar todas las ciudades del país “Inventado”
+db.ciudades.deleteMany({ country: "TEST"})
+
+//5. Reemplazar completamente el documento de “Ushuaia” por otros valores
+db.ciudades.replaceOne (
+ {nombre: "Ushuaia"},
+ {
+    nombre: "Ushuaia Nueva",
+    country: "AR",
+    population : 60000 ,
+    timezone: "America/Argentina/Ushuaia",
+    turistica : true
+ }
+)
+
+```
+</details>
